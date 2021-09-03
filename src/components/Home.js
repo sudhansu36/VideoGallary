@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from "./Carousel";
+import OurFeatures from "./OurFeatures";
 const Home = () => {
   return (
     <div className="fluid">
@@ -73,6 +74,7 @@ const Home = () => {
             <Carousel />
           </div>
         </div>
+        <OurFeatures />
       </div>
     </div>
   );

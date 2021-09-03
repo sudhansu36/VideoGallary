@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-const Login = () => {
+const Login = (props) => {
   let history = useHistory();
   let {
     register,
@@ -92,6 +92,7 @@ const Login = () => {
               className="btn btn-warning btn-sm text-light"
               data-bs-toggle="modal"
               data-bs-target="#register"
+              onClick={props.setRModal(true)}
             >
               SIGN UP
             </button>
