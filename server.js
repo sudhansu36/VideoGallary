@@ -1,7 +1,7 @@
-const express=require("express")
-const app=express(
-const path=require("path")
+const express = require("express");
+const app = express();
+const path = require("path");
 
-app.use(express.static(path.join(__dirname,'./build')))
+app.use(express.static(path.join(__dirname, "./build")));
 
-app.listen(4000,console.log("server on 4000"))
+app.listen(4000, console.log("server on 4000"));
