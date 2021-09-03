@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from "./Carousel";
+import GetStarted from "./GetStarted";
 import OurFeatures from "./OurFeatures";
 const Home = () => {
   return (
@@ -61,13 +62,7 @@ const Home = () => {
                 Cupiditate ullam, id nobis similique sequi accusamus enim veniam
                 praesentium. Vel, maxime.
               </p>
-              <button
-                type="button"
-                className="btn btn-success btn-lg"
-                data-bs-dismiss="modal"
-              >
-                GET STARTED
-              </button>
+              <GetStarted/>
             </div>
           </div>
           <div className="col-md-9 m-0 p-0">

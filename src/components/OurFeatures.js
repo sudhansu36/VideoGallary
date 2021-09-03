@@ -1,8 +1,8 @@
 import React from "react";
-
+import GetStarted from "./GetStarted";
 const OurFeatures = () => {
   return (
-    <div>
+    <div className="my-1">
       <div className="container-fluid text-light">
         <div className="row row-cols-1">
           <div className="col p-0 my-2">
@@ -16,39 +16,34 @@ const OurFeatures = () => {
                   />
                 </div>
                 <div className="col my-auto mx-3">
-                  <div>
+                  <div className="my-1">
                     <h1>context...</h1>
                     <p className="lead">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                       Cum minima et ratione amet magni fuga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <button className="btn btn-success btn-lg">
-                      Get Started
-                    </button>
+                    <GetStarted />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <div className="col p-0 my-1">
             <div className="card  bg-transparent">
               <div className="card-body row p-0 m-0">
-                <div className="col order-lg-1 order-md-2 order-sm-2 order-xs-2 text-lg-end my-auto mx-3">
-                  <div>
+                <div className="col order-lg-1 order-2 text-lg-end my-auto mx-3">
+                  <div className="my-1">
                     <h1>context...</h1>
                     <p className="lead">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                       Cum minima et ratione amet magni fga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <button className="btn btn-success btn-lg">
-                      Get Started
-                    </button>
+                    <GetStarted />
                   </div>
                 </div>
-                <div className="col-lg-4 order-md-1 order-sm-1 order-xs-1 order-lg-2  p-0">
+                <div className="col-lg-4 order-lg-2  p-0">
                   <img
                     src="https://res.cloudinary.com/djczbozsv/image/upload/v1630683861/VIDEO%20GALLERY/HOME/robot_umbrella_4k_hd_creative-1920x1080_qnesu4.jpg"
                     alt=""
@@ -70,17 +65,39 @@ const OurFeatures = () => {
                   />
                 </div>
                 <div className="col my-auto mx-3">
-                  <div>
+                  <div className="my-1">
                     <h1>context...</h1>
                     <p className="lead">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                       Cum minima et ratione amet magni fuga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <button className="btn btn-success btn-lg">
-                      Get Started
-                    </button>
+                    <GetStarted />
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col p-0 my-1">
+            <div className="card  bg-transparent">
+              <div className="card-body row p-0 m-0">
+                <div className="col order-lg-1 order-2 text-lg-end my-auto mx-3">
+                  <div className="my-1">
+                    <h1>context...</h1>
+                    <p className="lead">
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Cum minima et ratione amet magni fga natus pariatur illum
+                      assumenda recusandae.
+                    </p>
+                    <GetStarted />
+                  </div>
+                </div>
+                <div className="col-lg-4 order-lg-2  p-0">
+                  <img
+                    src="https://res.cloudinary.com/djczbozsv/image/upload/v1630684254/VIDEO%20GALLERY/HOME/technology_anonymous_4k_hd_creative-1920x1080_u4nmif.jpg"
+                    alt=""
+                    className="w-100"
+                  />
                 </div>
               </div>
             </div>
@@ -90,5 +107,4 @@ const OurFeatures = () => {
     </div>
   );
 };
-
 export default OurFeatures;
