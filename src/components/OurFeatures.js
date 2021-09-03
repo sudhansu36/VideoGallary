@@ -40,7 +40,7 @@ const OurFeatures = () => {
                     <h1>context...</h1>
                     <p className="lead">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Cum minima et ratione amet magni fuga natus pariatur illum
+                      Cum minima et ratione amet magni fga natus pariatur illum
                       assumenda recusandae.
                     </p>
                     <button className="btn btn-success btn-lg">
