@@ -8,7 +8,7 @@ const GetStarted = () => {
       data-bs-toggle="modal"
       data-bs-target="#login"
     >
-      GET STARTED
+      Get Started
     </button>
   );
 };

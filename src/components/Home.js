@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "./Carousel";
 import GetStarted from "./GetStarted";
 import OurFeatures from "./OurFeatures";
+import SquareCard from "./SquareCard";
 const Home = () => {
   return (
     <div className="fluid">
@@ -56,13 +57,13 @@ const Home = () => {
               />
             </div>
             <div className="text-center my-3 text-light mx-auto shadow-lg">
-              <h3 className="text-warning">WelCome to...</h3>
+              <h3 className="text-warning">Welcome to Prilix</h3>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Cupiditate ullam, id nobis similique sequi accusamus enim veniam
                 praesentium. Vel, maxime.
               </p>
-              <GetStarted/>
+              <GetStarted />
             </div>
           </div>
           <div className="col-md-9 m-0 p-0">
@@ -70,6 +71,7 @@ const Home = () => {
           </div>
         </div>
         <OurFeatures />
+        <SquareCard />
       </div>
     </div>
   );

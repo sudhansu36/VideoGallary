@@ -4,14 +4,16 @@ import Login from "./Login";
 import Register from "./Register";
 const Navbar = (props) => {
   let [rmodal, setRModal] = useState(true);
-  let [lmodal, setLModal] = useState(true);
   return (
     <div>
       <LoadingBar height={3} color="#f11946" progress={props.progress} />
       <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-            Navbar
+            <i className="fab fa-waze fs-2 fw-bold text-warning">
+              <span className="text-danger ms-1">Pri</span>
+              <span className="text-primary me-1">lix</span>
+            </i>
           </a>
           <button
             className="navbar-toggler"
@@ -43,15 +45,15 @@ const Navbar = (props) => {
                 Search
               </button>
             </form> */}
-            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto">
+            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto ">
               <li className="nav-item">
                 <button
-                  className="btn btn-outline-light"
+                  className="btn btn-outline-light border-0"
                   type="submit"
                   data-bs-toggle="modal"
                   data-bs-target="#login"
                 >
-                  LOGIN
+                  <i className="fas fa-user fs-6"> SignIn </i>
                 </button>
               </li>
             </ul>
