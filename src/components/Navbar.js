@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import LoadingBar from "react-top-loading-bar";
 import Login from "./Login";
 import Register from "./Register";
 const Navbar = (props) => {
   let [rmodal, setRModal] = useState(true);
   return (
     <div>
-      <LoadingBar height={3} color="#f11946" progress={props.progress} />
-      <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <i className="fab fa-waze fs-2 fw-bold text-warning">
@@ -16,7 +14,7 @@ const Navbar = (props) => {
             </i>
           </a>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler border-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo02"

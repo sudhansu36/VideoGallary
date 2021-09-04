@@ -17,14 +17,44 @@ userApiObj.post(
     let newUser = JSON.parse(req.body.userObj);
     newUser.image = req.file.path;
     let user = await userCollection.findOne({ email: newUser.email });
-    if (user === undefined || user === null) {
+    if (user) {
+      res.send({ message: "User Already Existed" });
+    } else {
       let hashedPassword = await bcryptjs.hash(newUser.password, 6);
       newUser.password = hashedPassword;
       await userCollection.insertOne(newUser);
       res.send({ message: "User Registered Successfully" });
-    } else {
-      res.send({ message: "User Already Existed" });
     }
   })
 );
+
+userApiObj.post(
+  "/login",
+  expressAsyncHandler(async (req, res) => {
+    let userCredentialObj = req.body;
+    let user = await userCollection.findOne({
+      email: userCredentialObj.email,
+    });
+    console.log(user);
+    if (user === null) {
+      res.send({ message: "Invalid Username" });
+    } else {
+      let status = await bcryptjs.compare(
+        userCredentialObj.password,
+        user.password
+      );
+      if (status === false) {
+        res.send({ message: "Invalid Password" });
+      } else {
+        let signedToken = await jwt.sign(
+          { email: user.email },
+          process.env.SECRET,
+          { expiresIn: "1d" }
+        );
+        res.send({ message: "success", token: signedToken, user: user });
+      }
+    }
+  })
+);
+
 module.exports = userApiObj;

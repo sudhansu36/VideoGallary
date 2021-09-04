@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
-    <div className="fluid-container bg-dark text-center text-light sticky-bottom py-2 px-1">
+    <div className="fluid-container bg-dark text-center text-light py-2 px-1">
       <div>
         <ul className="d-flex justify-content-center nav">
           <li className="nav-item">

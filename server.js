@@ -4,7 +4,9 @@ const path = require("path");
 require("dotenv").config();
 app.use(express.static(path.join(__dirname, "./build")));
 const userApiObj = require("./APIS/userApi");
+const adminApiObj = require("./APIS/adminApi");
 app.use("/users", userApiObj);
+app.use("/admin", adminApiObj);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./build", "index.html"));
 });
@@ -17,6 +19,8 @@ mongoClient.connect(dbUrl, (err, client) => {
     let databaseObject = client.db("videogallery");
     let userCollection = databaseObject.collection("usercollection");
     app.set("userCollection", userCollection);
+    let adminCollection = databaseObject.collection("admincollection");
+    app.set("adminCollection", adminCollection);
     console.log("Connected to DB");
   }
 });
