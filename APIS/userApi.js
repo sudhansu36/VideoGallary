@@ -35,7 +35,6 @@ userApiObj.post(
     let user = await userCollection.findOne({
       email: userCredentialObj.email,
     });
-    console.log(user);
     if (user === null) {
       res.send({ message: "Invalid Username" });
     } else {

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
+import { useSelector } from "react-redux";
 const Navbar = (props) => {
-  let [rmodal, setRModal] = useState(true);
+  let [rmodal, setRModal] = useState(false);
+  let [lmodal, setLModal] = useState(false);
+  let { isSuccess } = useSelector((state) => state.user);
   return (
     <div>
       <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
@@ -25,14 +28,15 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {isSuccess?(<>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/">
                   Home
                 </a>
               </li>
-            </ul> */}
-            {/* <form className="d-flex">
+            </ul>
+            <form className="d-flex ms-auto">
               <input
                 className="form-control me-2"
                 type="search"
@@ -42,31 +46,32 @@ const Navbar = (props) => {
               <button className="btn btn-outline-success" type="submit">
                 Search
               </button>
-            </form> */}
+            </form></>):(
             <ul className="navbar-nav mb-2 mb-lg-0 ms-auto ">
               <li className="nav-item">
                 <button
                   className="btn btn-outline-light border-0"
                   type="submit"
-                  data-bs-toggle="modal"
-                  data-bs-target="#login"
+                  onClick={() => setLModal(true)}
                 >
                   <i className="fas fa-user fs-6"> SignIn </i>
                 </button>
               </li>
-            </ul>
+            </ul>)
+}
           </div>
         </div>
       </nav>
-
       <Login
         setProgress={props.setProgress}
-        rmodal={rmodal}
+        lmodal={lmodal}
+        setLModal={setLModal}
         setRModal={setRModal}
       />
       <Register
         setProgress={props.setProgress}
         rmodal={rmodal}
+        setLModal={setLModal}
         setRModal={setRModal}
       />
     </div>
