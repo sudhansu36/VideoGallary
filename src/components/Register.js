@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
+import LoadingContext from "../context/toploadingbar/LoadingContext";
 const Register = (props) => {
+  const { setProgress } = useContext(LoadingContext);
   let [userRegistrationStatus, setUserRegistrationStatus] = useState("");
   let {
     register,
@@ -11,13 +13,13 @@ const Register = (props) => {
   } = useForm();
   let [file, setFile] = useState(null);
   const onRegisterFormSubmit = async (userObj) => {
-    props.setProgress(10);
+    setProgress(10);
     let formData = new FormData();
     formData.append("photo", file, file.name);
     formData.append("userObj", JSON.stringify(userObj));
-    props.setProgress(20);
+    setProgress(20);
     let responseObj = await axios.post("/users/register", formData);
-    props.setProgress(60);
+    setProgress(60);
     let payload = responseObj.data;
     if (payload.message === "User Registered Successfully") {
       props.setRModal(false);
@@ -31,8 +33,8 @@ const Register = (props) => {
     setFile(e.target.files[0]);
   };
   return (
-    <Modal show={props.rmodal} centered>
-      <Modal.Header>
+    <Modal show={props.rmodal} centered onHide={() => props.setRModal(false)}>
+      <Modal.Header >
         <h5>
           REGISTER{" "}
           <span className="text-danger text-center">

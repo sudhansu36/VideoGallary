@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogin, clearLoginState } from "../store/userSlice";
 import { Modal } from "react-bootstrap";
+import LoadingContext from "../context/toploadingbar/LoadingContext";
 const Login = (props) => {
+  const { setProgress } = useContext(LoadingContext);
   let history = useHistory();
   let { userObj, isSuccess, invalidLoginMessage } = useSelector(
     (state) => state.user
@@ -21,11 +23,11 @@ const Login = (props) => {
     formState: { errors },
   } = useForm();
   function onLoginFormSubmit(userObj) {
-    props.setProgress(30);
+    setProgress(30);
     setUserCredentialObj({ ...userObj });
-    props.setProgress(60);
+    setProgress(60);
     dispatch(userLogin(userObj));
-    props.setProgress(100);
+    setProgress(100);
   }
   useEffect(() => {
     if (isSuccess === true && userCredentialObj.type === false) {
@@ -36,9 +38,10 @@ const Login = (props) => {
       props.setLModal(false);
       history.push(`/admindashboard/${userObj.name}`);
     }
+    // eslint-disable-next-line
   }, [isSuccess, userCredentialObj]);
   return (
-    <Modal show={props.lmodal} centered>
+    <Modal show={props.lmodal} centered onHide={() => props.setLModal(false)}>
       <Modal.Header className="d-flex justify-content-between">
         <h5>
           LOGIN{" "}

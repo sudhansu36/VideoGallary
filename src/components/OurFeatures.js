@@ -1,6 +1,6 @@
 import React from "react";
 import GetStarted from "./GetStarted";
-const OurFeatures = () => {
+const OurFeatures = ({ setLModal }) => {
   return (
     <div className="my-1">
       <div className="container-fluid text-light">
@@ -23,7 +23,7 @@ const OurFeatures = () => {
                       Cum minima et ratione amet magni fuga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <GetStarted />
+                    <GetStarted setLModal={setLModal} />
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@ const OurFeatures = () => {
                       Cum minima et ratione amet magni fga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <GetStarted />
+                    <GetStarted setLModal={setLModal} />
                   </div>
                 </div>
                 <div className="col-lg-4 order-lg-2  p-0">
@@ -72,7 +72,7 @@ const OurFeatures = () => {
                       Cum minima et ratione amet magni fuga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <GetStarted />
+                    <GetStarted setLModal={setLModal} />
                   </div>
                 </div>
               </div>
@@ -89,7 +89,7 @@ const OurFeatures = () => {
                       Cum minima et ratione amet magni fga natus pariatur illum
                       assumenda recusandae.
                     </p>
-                    <GetStarted />
+                    <GetStarted setLModal={setLModal} />
                   </div>
                 </div>
                 <div className="col-lg-4 order-lg-2  p-0">

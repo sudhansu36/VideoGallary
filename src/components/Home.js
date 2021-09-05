@@ -3,7 +3,7 @@ import Carousel from "./Carousel";
 import GetStarted from "./GetStarted";
 import OurFeatures from "./OurFeatures";
 import SquareCard from "./SquareCard";
-const Home = () => {
+const Home = ({setLModal}) => {
   return (
     <div className="fluid">
       <div className="container-fluid">
@@ -63,14 +63,14 @@ const Home = () => {
                 Cupiditate ullam, id nobis similique sequi accusamus enim veniam
                 praesentium. Vel, maxime.
               </p>
-              <GetStarted />
+              <GetStarted setLModal={setLModal}/>
             </div>
           </div>
           <div className="col-md-9 m-0 p-0">
             <Carousel />
           </div>
         </div>
-        <OurFeatures />
+        <OurFeatures setLModal={setLModal}/>
         <SquareCard />
       </div>
     </div>

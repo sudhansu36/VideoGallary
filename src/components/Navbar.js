@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Login from "./Login";
 import Register from "./Register";
 import ProfileDropDown from "./ProfileDropDown";
 import { useSelector } from "react-redux";
-const Navbar = (props) => {
-  let [rmodal, setRModal] = useState(false);
-  let [lmodal, setLModal] = useState(false);
+const Navbar = ({rmodal,lmodal,setRModal,setLModal}) => {
   let { isSuccess } = useSelector((state) => state.user);
   return (
     <div>
@@ -76,13 +74,11 @@ const Navbar = (props) => {
         </div>
       </nav>
       <Login
-        setProgress={props.setProgress}
         lmodal={lmodal}
         setLModal={setLModal}
         setRModal={setRModal}
       />
       <Register
-        setProgress={props.setProgress}
         rmodal={rmodal}
         setLModal={setLModal}
         setRModal={setRModal}

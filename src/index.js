@@ -7,11 +7,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import LoadingState from "./context/toploadingbar/LoadingState";
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <LoadingState>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </LoadingState>
   </Provider>,
   document.getElementById("root")
 );

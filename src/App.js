@@ -4,19 +4,25 @@ import Navbar from "./components/Navbar";
 import UserDashBoard from "./components/UserDashBoard";
 import AdminDashBoard from "./components/AdminDashBoard";
 import Footer from "./components/Footer";
+import Loadingbar from "./components/Loadingbar";
 import { useState } from "react";
-import LoadingBar from "react-top-loading-bar";
 function App() {
-  const [progress, setProgress] = useState(0);
+  let [rmodal, setRModal] = useState(false);
+  let [lmodal, setLModal] = useState(false);
   return (
     <BrowserRouter>
       <div className="App">
-        <LoadingBar height={3} color="#f11946" progress={progress} />
-        <Navbar setProgress={setProgress} />
+        <Loadingbar />
+        <Navbar
+          rmodal={rmodal}
+          lmodal={lmodal}
+          setLModal={setLModal}
+          setRModal={setRModal}
+        />
       </div>
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home setLModal={setLModal} />
         </Route>
         <Route path="/userdashboard">
           <UserDashBoard />
