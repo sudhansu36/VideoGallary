@@ -15,8 +15,9 @@ const Register = (props) => {
     let formData = new FormData();
     formData.append("photo", file, file.name);
     formData.append("userObj", JSON.stringify(userObj));
+    props.setProgress(20);
     let responseObj = await axios.post("/users/register", formData);
-    props.setProgress(50);
+    props.setProgress(60);
     let payload = responseObj.data;
     if (payload.message === "User Registered Successfully") {
       props.setRModal(false);

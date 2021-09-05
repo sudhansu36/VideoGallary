@@ -38,6 +38,7 @@ const userSlice = createSlice({
   reducers: {
     clearLoginState: (state) => {
       state.isSuccess = false;
+      state.userObj = {};
       return state;
     },
   },

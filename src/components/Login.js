@@ -21,9 +21,9 @@ const Login = (props) => {
     formState: { errors },
   } = useForm();
   function onLoginFormSubmit(userObj) {
-    props.setProgress(10);
+    props.setProgress(30);
     setUserCredentialObj({ ...userObj });
-    props.setProgress(50);
+    props.setProgress(60);
     dispatch(userLogin(userObj));
     props.setProgress(100);
   }

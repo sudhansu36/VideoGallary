@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Login from "./Login";
 import Register from "./Register";
+import ProfileDropDown from "./ProfileDropDown";
 import { useSelector } from "react-redux";
 const Navbar = (props) => {
   let [rmodal, setRModal] = useState(false);
@@ -28,37 +29,49 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            {isSuccess?(<>
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
-                  Home
-                </a>
-              </li>
-            </ul>
-            <form className="d-flex ms-auto">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form></>):(
-            <ul className="navbar-nav mb-2 mb-lg-0 ms-auto ">
-              <li className="nav-item">
-                <button
-                  className="btn btn-outline-light border-0"
-                  type="submit"
-                  onClick={() => setLModal(true)}
-                >
-                  <i className="fas fa-user fs-6"> SignIn </i>
-                </button>
-              </li>
-            </ul>)
-}
+            {isSuccess ? (
+              <>
+                <ul className="navbar-nav se-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <a className="nav-link active" aria-current="page" href="/">
+                      Home
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link active" aria-current="page" href="/">
+                      Home
+                    </a>
+                  </li>
+                </ul>
+                <form className="d-flex">
+                  <input
+                    className="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <button
+                    className="btn btn-outline-success fw-bold"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
+                <ProfileDropDown />
+              </>
+            ) : (
+              <ul className="navbar-nav mb-2 mb-lg-0 ms-auto ">
+                <li className="nav-item">
+                  <button
+                    className="btn btn-outline-light border-0"
+                    type="submit"
+                    onClick={() => setLModal(true)}
+                  >
+                    <i className="fas fa-user fs-6"> SignIn </i>
+                  </button>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
