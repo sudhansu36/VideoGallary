@@ -18,7 +18,17 @@ const clStorage1 = new CloudinaryStorage({
     };
   },
 });
+const clStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    return {
+      folder: "VIDEO GALLERY/MOVIE COLLECTIONS",
+      public_key: file.fieldname + "_" + Date.now(),
+    };
+  },
+});
 // config multer
 const userDpObj = multer({ storage: clStorage1 });
+const moviePic = multer({ storage: clStorage });
 // export
-module.exports = { userDpObj };
+module.exports = { userDpObj, moviePic };

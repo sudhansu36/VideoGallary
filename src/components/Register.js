@@ -27,7 +27,7 @@ const Register = (props) => {
     } else {
       setUserRegistrationStatus("Email has Already Register");
     }
-    props.setProgress(100);
+    setProgress(100);
   };
   const onDpSelect = (e) => {
     setFile(e.target.files[0]);

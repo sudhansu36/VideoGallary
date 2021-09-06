@@ -38,21 +38,20 @@ const AddContent = () => {
   const onContentSelect = (e) => {
     setFile(e.target.files[0]);
   };
-  const onAddContentSubmit = (productObj) => {
-    console.log(productObj);
-    // let formData = new FormData();
-    // formData.append("photo", file, file.name);
-    // formData.append("productObj", JSON.stringify(productObj));
-    // let response = await axiosReqWithToken.post(
-    //   "/products/addproduct",
-    //   formData
-    // );
-    // if (response.data.message === "New Product Created") {
-    //   alert(response.data.message);
-    //   history.goBack();
-    // } else {
-    //   alert(response.data.message);
-    // }
+  const onAddContentSubmit = async (contentObj) => {
+    let formData = new FormData();
+    formData.append("photo", file, file.name);
+    formData.append("contentObj", JSON.stringify(contentObj));
+    let response = await axiosReqWithToken.post(
+      "/content/addcontent",
+      formData
+    );
+    if (response.data.message === "New Content Created") {
+      alert(response.data.message);
+      history.goBack();
+    } else {
+      alert(response.data.message);
+    }
   };
   return (
     <div className="mt-5 container">

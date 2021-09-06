@@ -5,8 +5,10 @@ require("dotenv").config();
 app.use(express.static(path.join(__dirname, "./build")));
 const userApiObj = require("./APIS/userApi");
 const adminApiObj = require("./APIS/adminApi");
+const contentApiObj = require("./APIS/contentApi");
 app.use("/users", userApiObj);
 app.use("/admin", adminApiObj);
+app.use("/content", contentApiObj);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./build", "index.html"));
 });
@@ -21,6 +23,8 @@ mongoClient.connect(dbUrl, (err, client) => {
     app.set("userCollection", userCollection);
     let adminCollection = databaseObject.collection("admincollection");
     app.set("adminCollection", adminCollection);
+    let contentCollection = databaseObject.collection("contentcollection");
+    app.set("contentCollection", contentCollection);
     console.log("Connected to DB");
   }
 });
