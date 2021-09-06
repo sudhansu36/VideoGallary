@@ -3,7 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import ProfileDropDown from "./ProfileDropDown";
 import { useSelector } from "react-redux";
-const Navbar = ({rmodal,lmodal,setRModal,setLModal}) => {
+const Navbar = ({ rmodal, lmodal, setRModal, setLModal }) => {
   let { isSuccess } = useSelector((state) => state.user);
   return (
     <div>
@@ -61,7 +61,7 @@ const Navbar = ({rmodal,lmodal,setRModal,setLModal}) => {
               <ul className="navbar-nav mb-2 mb-lg-0 ms-auto ">
                 <li className="nav-item">
                   <button
-                    className="btn btn-outline-light border-0"
+                    className="btn btn-outline-light border-0 noshadow"
                     type="submit"
                     onClick={() => setLModal(true)}
                   >
@@ -73,16 +73,8 @@ const Navbar = ({rmodal,lmodal,setRModal,setLModal}) => {
           </div>
         </div>
       </nav>
-      <Login
-        lmodal={lmodal}
-        setLModal={setLModal}
-        setRModal={setRModal}
-      />
-      <Register
-        rmodal={rmodal}
-        setLModal={setLModal}
-        setRModal={setRModal}
-      />
+      <Login lmodal={lmodal} setLModal={setLModal} setRModal={setRModal} />
+      <Register rmodal={rmodal} setLModal={setLModal} setRModal={setRModal} />
     </div>
   );
 };

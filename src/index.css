@@ -5,3 +5,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.scoll-pane {
+  width: 100%;
+  height: auto;
+  outline: none;
+  overflow-y: hidden;
+  padding-bottom: 15px;
+  -ms-overflow-style: scroll;
+  scrollbar-width: none;
+}
+.scoll-pane::-webkit-scrollbar {
+  display: none;
+}
+
+.noshadow {
+  box-shadow: none !important;
+}

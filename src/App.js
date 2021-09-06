@@ -24,10 +24,10 @@ function App() {
         <Route exact path="/">
           <Home setLModal={setLModal} />
         </Route>
-        <Route path="/userdashboard">
+        <Route path="/userdashboard/:name">
           <UserDashBoard />
         </Route>
-        <Route path="/admindashboard">
+        <Route path="/admindashboard/:name">
           <AdminDashBoard />
         </Route>
       </Switch>
