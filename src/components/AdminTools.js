@@ -6,7 +6,7 @@ const AdminTools = (props) => {
     backgroundColor: "#2f302d",
   };
   return (
-    <div className="fluid-container py-2">
+    <div className="fluid-container py-2 mx-2">
       <div className="d-flex flex-row flex-nowrap overflow-auto scoll-pane row row-cols-4 row-cols-lg-5 m-0 p-0 ">
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
           <NavLink

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
 import { useForm } from "react-hook-form";
+import LoadingContext from "../context/toploadingbar/LoadingContext";
 const AddContent = () => {
+  const { setProgress } = useContext(LoadingContext);
   let axiosReqWithToken = getAxiosWithTokenObj();
   let history = useHistory();
   let [file, setFile] = useState(null);
@@ -18,6 +20,7 @@ const AddContent = () => {
     "Adventure",
     "Biographical",
     "Fantasy",
+    "Anime",
   ];
   let languages = [
     "English",
@@ -39,19 +42,23 @@ const AddContent = () => {
     setFile(e.target.files[0]);
   };
   const onAddContentSubmit = async (contentObj) => {
+    setProgress(10);
     let formData = new FormData();
     formData.append("photo", file, file.name);
     formData.append("contentObj", JSON.stringify(contentObj));
+    setProgress(40);
     let response = await axiosReqWithToken.post(
       "/content/addcontent",
       formData
     );
+    setProgress(90);
     if (response.data.message === "New Content Created") {
       alert(response.data.message);
       history.goBack();
     } else {
       alert(response.data.message);
     }
+    setProgress(100);
   };
   return (
     <div className="mt-5 container">
@@ -85,7 +92,7 @@ const AddContent = () => {
             />
             <label
               className="form-check-label text-light"
-              htmlFor="inlineRadio1"
+              htmlFor="movie"
             >
               Movie
             </label>

@@ -23,11 +23,60 @@ contentApiObj.post(
     } else {
       //add image cdn link to productObj
       contentObj.image = req.file.path;
+      contentObj.rating = 0;
       await contentCollection.insertOne(contentObj);
       // send res
       res.send({ message: "New Content Created" });
     }
   })
 );
-
+contentApiObj.get(
+  "/getcontent",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let allContent = await contentCollection.find().toArray();
+    res.send({ message: "Collection data", payload: allContent });
+  })
+);
+contentApiObj.get(
+  "/Genres/:genre",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let genre = req.params.genre;
+    let allContent = await contentCollection.find({ genres: genre }).toArray();
+    res.send({ message: "success", payload: allContent });
+  })
+);
+contentApiObj.get(
+  "/Languages/:language",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let language = req.params.language;
+    let allContent = await contentCollection
+      .find({ languages: language })
+      .toArray();
+    res.send({ message: "success", payload: allContent });
+  })
+);
+contentApiObj.get(
+  "/Categories/:category",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let category = req.params.category;
+    let allContent = await contentCollection
+      .find({ category: category })
+      .toArray();
+    res.send({ message: "success", payload: allContent });
+  })
+);
+contentApiObj.get(
+  "/language",
+  expressAsyncHandler(async (req, res) => {
+    let language = req.body;
+    let allContent = await contentCollection
+      .find({ languages: { $all: language.languages } })
+      .toArray();
+    res.send({ message: "Languages", payload: allContent });
+  })
+);
 module.exports = contentApiObj;

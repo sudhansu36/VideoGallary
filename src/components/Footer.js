@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
-    <div className="fluid-container bg-dark text-center text-light py-2 px-1">
+    <footer className="fluid-container bg-dark text-center text-light py-2 px-1 position-relative bottom-0 w-100">
       <div>
         <ul className="d-flex justify-content-center nav">
           <li className="nav-item">
@@ -30,7 +30,7 @@ const Footer = () => {
           <li className="my-auto mx-1 nav-item">Inc. or its affiliates</li>
         </ul>
       </div>
-    </div>
+    </footer>
   );
 };
 
