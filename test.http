@@ -1,0 +1,15 @@
+GET http://localhost:4000/content/getcontent
+###
+GET http://localhost:4000/content/genres/Action
+###
+GET http://localhost:4000/content/language/Panjabi
+###
+GET http://localhost:4000/content/category/series
+###
+GET http://localhost:4000/content/language
+Content-Type: application/json
+
+{
+  "languages":["Hindi","English","Panjabi","Tamil"]
+}
+###

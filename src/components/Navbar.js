@@ -2,9 +2,12 @@ import React from "react";
 import Login from "./Login";
 import Register from "./Register";
 import ProfileDropDown from "./ProfileDropDown";
+import { useHistory, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-const Navbar = ({ rmodal, lmodal, setRModal, setLModal }) => {
-  let { isSuccess } = useSelector((state) => state.user);
+const Navbar = ({ rmodal, lmodal, setRModal, setLModal, token, setToken }) => {
+  let history = useHistory();
+  let { userObj } = useSelector((state) => state.user);
+  let { isAdmin, name } = userObj;
   return (
     <div>
       <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
@@ -27,21 +30,33 @@ const Navbar = ({ rmodal, lmodal, setRModal, setLModal }) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            {isSuccess ? (
+            {token ? (
               <>
                 <ul className="navbar-nav se-auto mb-2 mb-lg-0">
-                  <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">
+                  <li className="nav-item text-light mx-2">
+                    <NavLink
+                      className="nav-link"
+                      to={
+                        isAdmin
+                          ? `/admindashboard/${name}`
+                          : `/userdashboard/${name}`
+                      }
+                    >
                       Home
-                    </a>
+                    </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">
-                      Home
-                    </a>
+                  <li className="nav-item text-light mx-2">
+                    <NavLink className="nav-link" to="/result/Category/movie">
+                      Movie
+                    </NavLink>
+                  </li>
+                  <li className="nav-item text-light mx-2">
+                    <NavLink className="nav-link" to="/result/Category/series">
+                      Tv Show
+                    </NavLink>
                   </li>
                 </ul>
-                <form className="d-flex">
+                {/* <form className="d-flex">
                   <input
                     className="form-control me-2"
                     type="search"
@@ -54,8 +69,8 @@ const Navbar = ({ rmodal, lmodal, setRModal, setLModal }) => {
                   >
                     Search
                   </button>
-                </form>
-                <ProfileDropDown />
+                </form> */}
+                <ProfileDropDown setToken={setToken} />
               </>
             ) : (
               <ul className="navbar-nav mb-2 mb-lg-0 ms-auto ">

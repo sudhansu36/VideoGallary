@@ -15,6 +15,8 @@ export const userLogin = createAsyncThunk(
     }
     if (data.message === "success") {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("usertype", userCredentialObj.type);
+      localStorage.setItem("userObj", JSON.stringify(data.user));
       return data.user;
     }
     if (
@@ -41,6 +43,10 @@ const userSlice = createSlice({
       state.userObj = {};
       return state;
     },
+    reLogin: (state, action) => {
+      state.isSuccess = true;
+      state.userObj = action.payload;
+    },
   },
   extraReducers: {
     [userLogin.fulfilled]: (state, action) => {
@@ -61,5 +67,5 @@ const userSlice = createSlice({
     },
   },
 });
-export const { clearLoginState } = userSlice.actions;
+export const { clearLoginState, reLogin } = userSlice.actions;
 export default userSlice.reducer;

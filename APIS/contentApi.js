@@ -35,7 +35,7 @@ contentApiObj.get(
   checkToken,
   expressAsyncHandler(async (req, res) => {
     let allContent = await contentCollection.find().toArray();
-    res.send({ message: "Collection data", payload: allContent });
+    res.send({ message: "Collection data", payload: allContent,status:true });
   })
 );
 contentApiObj.get(
@@ -59,7 +59,7 @@ contentApiObj.get(
   })
 );
 contentApiObj.get(
-  "/Categories/:category",
+  "/Category/:category",
   checkToken,
   expressAsyncHandler(async (req, res) => {
     let category = req.params.category;

@@ -2,12 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearLoginState } from "../store/userSlice";
-const ProfileDropDown = () => {
+import { clearContentState } from "../store/contentSlice";
+const ProfileDropDown = ({ setToken }) => {
   let { userObj } = useSelector((state) => state.user);
+  let { isAdmin } = userObj;
   let dispatch = useDispatch();
   const onUserLogout = () => {
     localStorage.clear();
+    dispatch(clearContentState());
     dispatch(clearLoginState());
+    setToken(null);
   };
   return (
     <>
@@ -28,11 +32,16 @@ const ProfileDropDown = () => {
         <span className="ms-2">{userObj.name}</span>
       </div>
       <ul className="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0 m-0">
-        <li className="list-group-item list-group-item-info">
-          <button className="dropdown-item" type="button">
-            My Watchlist
-          </button>
-        </li>
+        {!isAdmin && (
+          <li className="list-group-item list-group-item-info">
+            <NavLink
+              className="dropdown-item bg-transparent text-dark fw-bold"
+              to="/mywatchlist"
+            >
+              My Watchlist
+            </NavLink>
+          </li>
+        )}
         <li className="list-group-item list-group-item-info">
           <button className="dropdown-item" type="button">
             Account & Setting

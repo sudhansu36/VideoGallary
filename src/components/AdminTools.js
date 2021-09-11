@@ -1,10 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 const AdminTools = (props) => {
-  let activeLinkStyle = {
-    fontWeight: "bold",
-    backgroundColor: "#2f302d",
-  };
   return (
     <div className="fluid-container py-2 mx-2">
       <div className="d-flex flex-row flex-nowrap overflow-auto scoll-pane row row-cols-4 row-cols-lg-5 m-0 p-0 ">
@@ -12,7 +8,6 @@ const AdminTools = (props) => {
           <NavLink
             className="nav-link p-0 d-block rounded"
             to={`${props.url}/addcontent`}
-            activeStyle={activeLinkStyle}
           >
             <img
               src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"

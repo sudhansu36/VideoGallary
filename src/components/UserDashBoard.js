@@ -1,11 +1,23 @@
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, useContext } from "react";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
 import TypeCard from "./TypeCard";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useRouteMatch } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingContext from "../context/toploadingbar/LoadingContext";
+import { getContent, clearContentState } from "../store/contentSlice";
+import { getWatchList } from "../store/watchlistSlice";
+const fetchData = async () => {
+  try {
+    let axiosReqWithToken = getAxiosWithTokenObj();
+    let response = await axiosReqWithToken.get("/content/getcontent");
+    let contentObj = response.data;
+    return contentObj.payload;
+  } catch (e) {
+    alert("Error", e);
+  }
+};
 const UserDashBoard = () => {
-  let ResultPage = React.lazy(() => import("./ResultPage"));
-  let axiosReqWithToken = getAxiosWithTokenObj();
+  const { setProgress } = useContext(LoadingContext);
   let categories = ["movie", "series"];
   let languages = [
     "English",
@@ -22,7 +34,7 @@ const UserDashBoard = () => {
     "Action",
     "Horror",
     "Crime",
-    "Romanse",
+    "Romance",
     "Drama",
     "Science fiction",
     "Comedy",
@@ -32,45 +44,35 @@ const UserDashBoard = () => {
     "Fantasy",
     "Anime",
   ];
+  let { isSuccess } = useSelector((state) => state.contentCollection);
+  let user = useSelector((state) => state.user);
+  let userObj = user.userObj;
+  let { email, isAdmin } = userObj;
+  let dispatch = useDispatch(clearContentState);
   useEffect(() => {
-    try {
-      async function fetchData() {
-        let response = await axiosReqWithToken.get("/content/getcontent");
-        console.log(response);
-      }
-      fetchData();
-    } catch (e) {
-      alert("Error", e.message);
-    }
-  }, []);
-  let { path} = useRouteMatch();
-
+    setProgress(30);
+    dispatch(getContent());
+    setProgress(60);
+    !isAdmin && dispatch(getWatchList({ email: email }));
+    setProgress(100);
+  }, [isSuccess]);
+  // let { status, error, data } = useQuery("contentCollection", fetchData);
+  // console.log("data", data);
+  // if (status === "loading") {
+  //   setProgress(50);
+  // }
+  // if (status === "success") {
+  //   setProgress(100);
+  // }
+  // if (status === "error") {
+  //   alert(error.message);
+  // }
   return (
-    <Suspense
-      fallback={
-        <div
-          className="spinner-border text-light text-center my-2"
-          role="status"
-        >
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      }
-    >
-      <BrowserRouter>
-        <Switch>
-          <Route exact path={`${path}`}>
-            <div className="fluid-container">
-              <TypeCard title="Categories" collection={categories} />
-              <TypeCard title="Languages" collection={languages} />
-              <TypeCard title="Genres" collection={genres} />
-            </div>
-          </Route>
-          <Route path={`${path}/result/:type/:data`}>
-            <ResultPage />
-          </Route>
-        </Switch>
-      </BrowserRouter>
-    </Suspense>
+    <div className="fluid-container">
+      <TypeCard title="Category" collection={categories} />
+      <TypeCard title="Languages" collection={languages} />
+      <TypeCard title="Genres" collection={genres} />
+    </div>
   );
 };
 

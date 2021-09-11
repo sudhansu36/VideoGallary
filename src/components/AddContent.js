@@ -90,10 +90,7 @@ const AddContent = () => {
               value="movie"
               {...register("category", { required: true })}
             />
-            <label
-              className="form-check-label text-light"
-              htmlFor="movie"
-            >
+            <label className="form-check-label text-light" htmlFor="movie">
               Movie
             </label>
           </div>
@@ -200,8 +197,12 @@ const AddContent = () => {
               id="mpic"
               placeholder="Product Picture"
               onChange={onContentSelect}
+              // {...register("image", { required: true })}
             />
           </div>
+          {/* {errors.image?.type === "required" && (
+            <p className="text-danger">* Movie Picture is Required</p>
+          )} */}
           <button className="btn btn-primary mx-auto d-block text-light mb-3">
             Add Content
           </button>

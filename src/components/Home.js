@@ -58,7 +58,7 @@ const Home = ({ setLModal }) => {
                   className="col m-0 p-0"
                 />
               </div>
-              <div className="text-center my-3 text-light mx-auto shadow-lg">
+              <div className="text-center my-3 text-light mx-auto">
                 <h3 className="text-warning">Welcome to Prilix</h3>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.

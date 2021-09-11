@@ -19,11 +19,9 @@ const TypeCard = (props) => {
     "#111111",
   ];
   async function showResult(obj) {
-    history.push({
-      pathname: `${url}/result/${props.title}/${obj}`,
-      state: obj,
-    });
+    history.push(`/result/${props.title}/${obj}`);
   }
+
   return (
     <div className="fluid-container py-2 mx-3">
       <h3 className="text-light fw-bold py-0 px-2">{props.title}</h3>

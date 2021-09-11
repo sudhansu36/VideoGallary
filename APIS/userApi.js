@@ -3,6 +3,7 @@ const expressAsyncHandler = require("express-async-handler");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { userDpObj } = require("./middlewares/cloudinary");
+const { checkRole } = require("./middlewares/verifyRole");
 const userApiObj = express.Router();
 userApiObj.use(express.json());
 let userCollection;
@@ -22,6 +23,7 @@ userApiObj.post(
     } else {
       let hashedPassword = await bcryptjs.hash(newUser.password, 6);
       newUser.password = hashedPassword;
+      newUser.isAdmin = false;
       await userCollection.insertOne(newUser);
       res.send({ message: "User Registered Successfully" });
     }
@@ -30,6 +32,7 @@ userApiObj.post(
 
 userApiObj.post(
   "/login",
+  checkRole(false),
   expressAsyncHandler(async (req, res) => {
     let userCredentialObj = req.body;
     let user = await userCollection.findOne({

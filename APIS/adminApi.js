@@ -1,6 +1,8 @@
 const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
+const { checkRole } = require("./middlewares/verifyRole");
 const adminApiObj = express.Router();
 adminApiObj.use(express.json());
 let adminCollection;
@@ -11,6 +13,7 @@ adminApiObj.use((req, res, next) => {
 // Login
 adminApiObj.post(
   "/login",
+  checkRole(true),
   expressAsyncHandler(async (req, res) => {
     // get user credentials obj
     let adminCredentialObj = req.body;
@@ -25,7 +28,10 @@ adminApiObj.post(
     // user found
     else {
       // compare password
-      let status = admin.password === adminCredentialObj.password;
+      let status = await bcryptjs.compare(
+        adminCredentialObj.password,
+        admin.password
+      );
       // if Password not Matched
       if (status === false) {
         res.send({ message: "Invalid Password" });
@@ -38,7 +44,6 @@ adminApiObj.post(
           process.env.SECRET,
           { expiresIn: 6000 }
         );
-
         // send token in res
         res.send({ message: "success", token: signedToken, user: admin });
       }

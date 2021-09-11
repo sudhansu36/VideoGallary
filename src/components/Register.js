@@ -34,7 +34,7 @@ const Register = (props) => {
   };
   return (
     <Modal show={props.rmodal} centered onHide={() => props.setRModal(false)}>
-      <Modal.Header >
+      <Modal.Header>
         <h5>
           REGISTER{" "}
           <span className="text-danger text-center">
@@ -85,8 +85,12 @@ const Register = (props) => {
               id="pic"
               onChange={onDpSelect}
               placeholder="Product Picture"
+              // {...register("image", { required: true })}
             />
           </div>
+          {/* {errors.image?.type === "required" && (
+            <p className="text-danger">* Profile Picture is Required</p>
+          )} */}
           <div className="form-floating mb-3">
             <input
               type="password"

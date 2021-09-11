@@ -2,7 +2,7 @@ import React from "react";
 import { Fade } from "react-reveal";
 const Carousel = () => {
   return (
-    <div className="shadow">
+    <div>
       <Fade right>
         <div
           id="carouselExampleCaptions"
