@@ -33,11 +33,12 @@ const TypeCard = (props) => {
               style={{
                 backgroundColor:
                   Color[Math.floor(Math.random() * Color.length)],
+                minHeight: "100px",
               }}
               key={key}
               onClick={() => showResult(obj)}
             >
-              <p className="py-0 m-0 px-2">{obj}</p>
+              <h4 className="py-0 m-0 px-2">{obj}</h4>
             </div>
           );
         })}
