@@ -28,7 +28,7 @@ const AdminTools = (props) => {
             className="mx-auto"
           />
           <div className="card-body text-center p-0">
-            <p className="card-title text-light">Add Content</p>
+            <p className="card-title text-light">Deleted Content</p>
           </div>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
@@ -39,18 +39,7 @@ const AdminTools = (props) => {
             className="mx-auto"
           />
           <div className="card-body text-center p-0">
-            <p className="card-title text-light">Add Content</p>
-          </div>
-        </div>
-        <div className="card bg-transparent border-3 border-dark p-2 ms-3">
-          <img
-            src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"
-            alt=""
-            width="30px"
-            className="mx-auto"
-          />
-          <div className="card-body text-center p-0">
-            <p className="card-title text-light">Add Content</p>
+            <p className="card-title text-light">View Users</p>
           </div>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 mx-3">
@@ -61,7 +50,7 @@ const AdminTools = (props) => {
             className="mx-auto"
           />
           <div className="card-body text-center p-0">
-            <p className="card-title text-light">Add Content</p>
+            <p className="card-title text-light">Public Feedback</p>
           </div>
         </div>
       </div>

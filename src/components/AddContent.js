@@ -12,7 +12,7 @@ const AddContent = () => {
     "Action",
     "Horror",
     "Crime",
-    "Romanse",
+    "Romance",
     "Drama",
     "Science fiction",
     "Comedy",
@@ -197,6 +197,7 @@ const AddContent = () => {
               id="mpic"
               placeholder="Product Picture"
               onChange={onContentSelect}
+              required
               // {...register("image", { required: true })}
             />
           </div>

@@ -84,7 +84,8 @@ const Register = (props) => {
               className="form-control"
               id="pic"
               onChange={onDpSelect}
-              placeholder="Product Picture"
+              placeholder="Profile Picture"
+              required
               // {...register("image", { required: true })}
             />
           </div>

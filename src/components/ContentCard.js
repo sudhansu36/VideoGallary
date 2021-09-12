@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Zoom from "react-reveal/Zoom";
-import { addToWatchList } from "../store/watchlistSlice";
+import { addToWatchList, deleteFromWatchList } from "../store/watchlistSlice";
+import { deleteContent } from "../store/contentSlice";
 const ContentCard = (props) => {
   let history = useHistory();
   let dispatch = useDispatch();
@@ -36,7 +37,12 @@ const ContentCard = (props) => {
               {isAdmin ? (
                 <div className="d-flex justify-content-between mx-2">
                   <i class="far fa-edit"></i>
-                  <i class="fas fa-trash"></i>
+                  <i
+                    class="fas fa-trash"
+                    onClick={() =>
+                      dispatch(deleteContent({ mname: props.obj.mname }))
+                    }
+                  ></i>
                 </div>
               ) : (
                 <div className="d-flex justify-content-between mx-2">
@@ -53,7 +59,17 @@ const ContentCard = (props) => {
                         }
                       ></i>
                     ) : (
-                      <i class="fas fa-minus px-1"></i>
+                      <i
+                        class="fas fa-minus px-1"
+                        onClick={() =>
+                          dispatch(
+                            deleteFromWatchList({
+                              email: email,
+                              content: props.obj,
+                            })
+                          )
+                        }
+                      ></i>
                     )}
                   </div>
                 </div>

@@ -11,7 +11,7 @@ export const addToWatchList = createAsyncThunk(
     let data = response.data;
     // make post
     if (data.message === "success") {
-      return data.payload;
+      return data;
     } else {
       // it will provide data to rejected state
       return thunkAPI.rejectWithValue(data);
@@ -22,15 +22,29 @@ export const getWatchList = createAsyncThunk(
   "getWatchList",
   async (userMail, thunkAPI) => {
     let { email } = userMail;
-    console.log("email:s:",email);
     let axiosReqWithToken = getAxiosWithTokenObj();
     let data;
     let response = await axiosReqWithToken.get(`/watchlist/getlist/${email}`);
-    console.log(response);
     data = response.data;
     if (data.message === "success") {
-      console.log(data.payload);
-      return data.payload;
+      return data;
+    } else {
+      // it will provide data to rejected state
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+export const deleteFromWatchList = createAsyncThunk(
+  "deleteFromWatchList",
+  async (content, thunkAPI) => {
+    let axiosReqWithToken = getAxiosWithTokenObj();
+    let response = await axiosReqWithToken.put(
+      "/watchlist/deletewatchlist",
+      content
+    );
+    let data = response.data;
+    if (data.message === "success") {
+      return data;
     } else {
       // it will provide data to rejected state
       return thunkAPI.rejectWithValue(data);
@@ -55,7 +69,7 @@ const watchlistSlice = createSlice({
   },
   extraReducers: {
     [addToWatchList.fulfilled]: (state, action) => {
-      state.watchList.push(action.payload);
+      state.watchList.push(action.payload.payload);
       state.isSuccess = true;
       state.isLoading = false;
       state.invalidMessage = "";
@@ -71,7 +85,7 @@ const watchlistSlice = createSlice({
       state.invalidMessage = action.payload.message;
     },
     [getWatchList.fulfilled]: (state, action) => {
-      state.watchList = action.payload;
+      state.watchList = action.payload.payload;
       state.isSuccess = true;
       state.isLoading = false;
       state.invalidMessage = "";
@@ -81,6 +95,22 @@ const watchlistSlice = createSlice({
       state.isLoading = true;
     },
     [getWatchList.rejected]: (state, action) => {
+      state.isSuccess = false;
+      state.isError = true;
+      state.isLoading = false;
+      state.invalidMessage = action.payload.message;
+    },
+    [deleteFromWatchList.fulfilled]: (state, action) => {
+      state.watchList.splice(action.payload.index, 1);
+      state.isSuccess = true;
+      state.isLoading = false;
+      state.invalidMessage = "";
+      state.isError = false;
+    },
+    [deleteFromWatchList.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [deleteFromWatchList.rejected]: (state, action) => {
       state.isSuccess = false;
       state.isError = true;
       state.isLoading = false;

@@ -35,7 +35,7 @@ contentApiObj.get(
   checkToken,
   expressAsyncHandler(async (req, res) => {
     let allContent = await contentCollection.find().toArray();
-    res.send({ message: "Collection data", payload: allContent,status:true });
+    res.send({ message: "Collection data", payload: allContent, status: true });
   })
 );
 contentApiObj.get(
@@ -69,14 +69,16 @@ contentApiObj.get(
     res.send({ message: "success", payload: allContent });
   })
 );
-contentApiObj.get(
-  "/language",
+contentApiObj.delete(
+  "/deletecontent/:mname",
+  checkToken,
   expressAsyncHandler(async (req, res) => {
-    let language = req.body;
-    let allContent = await contentCollection
-      .find({ languages: { $all: language.languages } })
-      .toArray();
-    res.send({ message: "Languages", payload: allContent });
+    let mname = req.params.mname;
+    let allContent = await contentCollection.find().toArray();
+    let index = allContent.findIndex((value) => value.mname === mname);
+    await contentCollection.deleteOne({ mname: mname });
+    res.send({ message: "deleted", index: index });
   })
 );
+
 module.exports = contentApiObj;

@@ -44,5 +44,20 @@ watchlistApiObj.post(
     }
   })
 );
+watchlistApiObj.put(
+  "/deletewatchlist",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let { email, content } = req.body;
+    let newContent = JSON.parse(JSON.stringify(content));
+    let { watchlist } = await watchlistCollection.findOne({ email: email });
+    let index = watchlist.findIndex((value) => value.mname === content.mname);
+    await watchlistCollection.updateOne(
+      { email: email },
+      { $pull: { watchlist: { mname: newContent.mname } } }
+    );
+    res.send({ message: "success", index: index });
+  })
+);
 
 module.exports = watchlistApiObj;

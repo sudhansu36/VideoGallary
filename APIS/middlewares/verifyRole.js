@@ -1,5 +1,3 @@
-const e = require("express");
-
 const checkRole = (role) => {
   return (req, res, next) => {
     if (req.body.type !== role) {

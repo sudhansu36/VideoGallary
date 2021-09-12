@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { reLogin } from "./store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "./store/contentSlice";
+import { getWatchList } from "./store/watchlistSlice";
 import UserDashBoard from "./components/UserDashBoard";
 import AdminDashBoard from "./components/AdminDashBoard";
 function App() {
@@ -39,16 +40,14 @@ function App() {
     },
   });
   let dispatch = useDispatch();
-  let content = useSelector((state) => state.contentCollection);
   useEffect(() => {
-    console.log("NUF");
     if (JSON.stringify(userObj) === JSON.stringify({})) {
       let token = window.localStorage.getItem("token");
       let user = JSON.parse(window.localStorage.getItem("userObj"));
       if (token && user) {
         dispatch(reLogin(user));
         dispatch(getContent());
-        console.log("UF");
+        !user.isAdmin && dispatch(getWatchList({ email: user.email }));
       }
     }
     // eslint-disable-next-line
