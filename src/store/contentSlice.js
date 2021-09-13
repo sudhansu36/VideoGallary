@@ -8,7 +8,6 @@ export const getContent = createAsyncThunk(
     // make post
     let data;
     let response = await axiosReqWithToken.get("/content/getcontent");
-    console.log(response);
     data = response.data;
     if (data.message === "Collection data") {
       return data.payload;

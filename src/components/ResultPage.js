@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
 import { useDispatch, useSelector } from "react-redux";
 import { clearLoginState } from "../store/userSlice";
-import ContentCard from "./ContentCard";
 import { useQueryClient } from "react-query";
+import ContentCard from "./ContentCard";
 const ResultPage = () => {
   let dispatch = useDispatch();
   let { contentCollection, isSuccess } = useSelector(
@@ -57,7 +57,7 @@ const ResultPage = () => {
     }
   }, [isSuccess, data]);
   return (
-    <div className="fluid-container">
+    <div className="fluid-container my-4">
       {result.length === 0 ? (
         <p className="text-center text-info">No Result....</p>
       ) : (

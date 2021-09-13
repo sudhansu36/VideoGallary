@@ -4,6 +4,7 @@ import Register from "./Register";
 import ProfileDropDown from "./ProfileDropDown";
 import { useHistory, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Searchbar from "./Searchbar";
 const Navbar = ({ rmodal, lmodal, setRModal, setLModal, token, setToken }) => {
   let history = useHistory();
   let { userObj } = useSelector((state) => state.user);
@@ -56,20 +57,7 @@ const Navbar = ({ rmodal, lmodal, setRModal, setLModal, token, setToken }) => {
                     </NavLink>
                   </li>
                 </ul>
-                {/* <form className="d-flex">
-                  <input
-                    className="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <button
-                    className="btn btn-outline-success fw-bold"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </form> */}
+                <Searchbar />
                 <ProfileDropDown setToken={setToken} />
               </>
             ) : (

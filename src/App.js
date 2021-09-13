@@ -18,6 +18,7 @@ function App() {
   // let UserDashBoard = React.lazy(() => import("./components/UserDashBoard"));
   // let AdminDashBoard = React.lazy(() => import("./components/AdminDashBoard"));
   let ResultPage = React.lazy(() => import("./components/ResultPage"));
+  let SearchResult = React.lazy(() => import("./components/SearchResult"));
   let MoviePreview = React.lazy(() => import("./components/MoviePreview"));
   let AddContent = React.lazy(() => import("./components/AddContent"));
   let MyWatchList = React.lazy(() => import("./components/MyWatchList"));
@@ -98,6 +99,9 @@ function App() {
             </Route>
             <Route path="/mywatchlist">
               <MyWatchList />
+            </Route>
+            <Route path="/searchresult">
+              <SearchResult />
             </Route>
           </Switch>
           <Footer />

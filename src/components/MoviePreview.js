@@ -6,15 +6,11 @@ const MoviePreview = () => {
     (state) => state.contentCollection
   );
   let [state, setState] = useState(null);
-  console.log("ContCol", contentCollection);
   let { id } = useParams();
-  console.log(id);
   useEffect(() => {
     let value = contentCollection.find((value) => value._id === id);
-    console.log(value);
     setState(value);
   }, [isSucess]);
-  console.log(state);
   return (
     <div className="card bg-dark text-white">
       {state && (

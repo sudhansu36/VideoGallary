@@ -21,7 +21,7 @@ const ContentCard = (props) => {
   return (
     <div className="col" key={props.key}>
       <div
-        className="card h-100 bg-transparent text-light p-0 border-0"
+        className="card h-100 bg-transparent text-light p-0 border-0 poster"
         onMouseEnter={() => setIsShown(true)}
         onMouseLeave={() => setIsShown(false)}
       >
