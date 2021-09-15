@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
-import { useDispatch, useSelector } from "react-redux";
-import { clearLoginState } from "../store/userSlice";
+import { useSelector } from "react-redux";
 import { useQueryClient } from "react-query";
 import ContentCard from "./ContentCard";
 const ResultPage = () => {
-  let dispatch = useDispatch();
   let { contentCollection, isSuccess } = useSelector(
     (state) => state.contentCollection
   );
-  let axiosReqWithToken = getAxiosWithTokenObj();
   let { type, data } = useParams();
   let [result, setResult] = useState([]);
   // let queryClient = useQueryClient();
@@ -35,25 +31,6 @@ const ResultPage = () => {
           }
         })
       );
-    } else {
-      try {
-        async function fetchData() {
-          let response = await axiosReqWithToken.get(
-            `/content/${type}/${data}`
-          );
-          let contentObj = response.data;
-          if (contentObj.message === "success") {
-            setResult([...contentObj.payload]);
-          } else {
-            alert(contentObj.message);
-            localStorage.clear();
-            dispatch(clearLoginState());
-          }
-        }
-        fetchData();
-      } catch (e) {
-        alert("Error", e.message);
-      }
     }
   }, [isSuccess, data]);
   return (

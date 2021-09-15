@@ -12,16 +12,17 @@ import { getContent } from "./store/contentSlice";
 import { getWatchList } from "./store/watchlistSlice";
 import UserDashBoard from "./components/UserDashBoard";
 import AdminDashBoard from "./components/AdminDashBoard";
+import { decrypt } from "./AuthorizedRequest/EncriptionDecription";
+import ProfilePage from "./components/ProfilePage";
 function App() {
   let [token, setToken] = useState(null);
   let { isSuccess, userObj } = useSelector((state) => state.user);
-  // let UserDashBoard = React.lazy(() => import("./components/UserDashBoard"));
-  // let AdminDashBoard = React.lazy(() => import("./components/AdminDashBoard"));
   let ResultPage = React.lazy(() => import("./components/ResultPage"));
   let SearchResult = React.lazy(() => import("./components/SearchResult"));
   let MoviePreview = React.lazy(() => import("./components/MoviePreview"));
   let AddContent = React.lazy(() => import("./components/AddContent"));
   let MyWatchList = React.lazy(() => import("./components/MyWatchList"));
+  let EditComponent = React.lazy(() => import("./components/EditComponent"));
   let [rmodal, setRModal] = useState(false);
   let [lmodal, setLModal] = useState(false);
   useEffect(() => {
@@ -44,8 +45,10 @@ function App() {
   useEffect(() => {
     if (JSON.stringify(userObj) === JSON.stringify({})) {
       let token = window.localStorage.getItem("token");
-      let user = JSON.parse(window.localStorage.getItem("userObj"));
-      if (token && user) {
+      let encryptedUser = window.localStorage.getItem("userObj");
+
+      if (token && encryptedUser) {
+        let user = decrypt(encryptedUser);
         dispatch(reLogin(user));
         dispatch(getContent());
         !user.isAdmin && dispatch(getWatchList({ email: user.email }));
@@ -102,6 +105,12 @@ function App() {
             </Route>
             <Route path="/searchresult">
               <SearchResult />
+            </Route>
+            <Route path="/editcontent/:mid">
+              <EditComponent />
+            </Route>
+            <Route path="/myprofile/:name">
+              <ProfilePage />
             </Route>
           </Switch>
           <Footer />

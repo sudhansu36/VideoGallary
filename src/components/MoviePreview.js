@@ -10,6 +10,7 @@ const MoviePreview = () => {
   useEffect(() => {
     let value = contentCollection.find((value) => value._id === id);
     setState(value);
+    // eslint-disable-next-line
   }, [isSucess]);
   return (
     <div className="card bg-dark text-white">

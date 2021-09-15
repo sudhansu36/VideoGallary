@@ -86,6 +86,7 @@ const Register = (props) => {
               onChange={onDpSelect}
               placeholder="Profile Picture"
               required
+              accept="image/*"
               // {...register("image", { required: true })}
             />
           </div>

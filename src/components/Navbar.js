@@ -2,11 +2,10 @@ import React from "react";
 import Login from "./Login";
 import Register from "./Register";
 import ProfileDropDown from "./ProfileDropDown";
-import { useHistory, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Searchbar from "./Searchbar";
 const Navbar = ({ rmodal, lmodal, setRModal, setLModal, token, setToken }) => {
-  let history = useHistory();
   let { userObj } = useSelector((state) => state.user);
   let { isAdmin, name } = userObj;
   return (

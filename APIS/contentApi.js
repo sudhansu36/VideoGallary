@@ -2,6 +2,7 @@ const express = require("express");
 const checkToken = require("./middlewares/verifyToken");
 const expressAsyncHandler = require("express-async-handler");
 const { moviePic } = require("./middlewares/cloudinary");
+const ObjectId = require("mongodb").ObjectId;
 const contentApiObj = express.Router();
 contentApiObj.use(express.json());
 let contentCollection;
@@ -26,7 +27,7 @@ contentApiObj.post(
       contentObj.rating = 0;
       await contentCollection.insertOne(contentObj);
       // send res
-      res.send({ message: "New Content Created" });
+      res.send({ message: "New Content Created", payload: contentObj });
     }
   })
 );
@@ -36,6 +37,33 @@ contentApiObj.get(
   expressAsyncHandler(async (req, res) => {
     let allContent = await contentCollection.find().toArray();
     res.send({ message: "Collection data", payload: allContent, status: true });
+  })
+);
+contentApiObj.delete(
+  "/deletecontent/:mname",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let mname = req.params.mname;
+    let allContent = await contentCollection.find().toArray();
+    let index = allContent.findIndex((value) => value.mname === mname);
+    await contentCollection.deleteOne({ mname: mname });
+    res.send({ message: "deleted", index: index });
+  })
+);
+contentApiObj.put(
+  "/editcontent",
+  checkToken,
+  moviePic.single("photo"),
+  expressAsyncHandler(async (req, res) => {
+    let contentObj = JSON.parse(req.body.contentObj);
+    contentObj.image = req.file.path;
+    let updatedContent = { ...contentObj };
+    delete contentObj._id;
+    await contentCollection.updateOne(
+      { _id: new ObjectId(updatedContent._id) },
+      { $set: contentObj }
+    );
+    res.send({ message: "updated", payload: updatedContent });
   })
 );
 contentApiObj.get(
@@ -67,17 +95,6 @@ contentApiObj.get(
       .find({ category: category })
       .toArray();
     res.send({ message: "success", payload: allContent });
-  })
-);
-contentApiObj.delete(
-  "/deletecontent/:mname",
-  checkToken,
-  expressAsyncHandler(async (req, res) => {
-    let mname = req.params.mname;
-    let allContent = await contentCollection.find().toArray();
-    let index = allContent.findIndex((value) => value.mname === mname);
-    await contentCollection.deleteOne({ mname: mname });
-    res.send({ message: "deleted", index: index });
   })
 );
 

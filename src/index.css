@@ -31,5 +31,19 @@ body {
   transition: transform 450ms;
 }
 .poster:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
+}
+
+.banner {
+  object-fit: contain;
+  height: 600px;
+}
+.banner_content {
+  height: 100%;
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    rgba(37, 37, 37, 0.61),
+    #111
+  );
 }

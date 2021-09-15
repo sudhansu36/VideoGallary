@@ -26,7 +26,7 @@ const Login = (props) => {
     setProgress(30);
     setUserCredentialObj({ ...userObj });
     setProgress(60);
-    dispatch(userLogin(userObj));
+    dispatch(userLogin({ ...userObj }));
     setProgress(100);
   }
   useEffect(() => {

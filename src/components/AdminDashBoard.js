@@ -5,11 +5,7 @@ const AdminDashBoard = () => {
   let { userObj } = useSelector((state) => state.user);
   let { isAdmin } = userObj;
   let { url } = useRouteMatch();
-  return (
-        <AdminTools url={url} />
-        
- 
-  );
+  return <div className="fluid">{isAdmin && <AdminTools url={url} />}</div>;
 };
 
 export default AdminDashBoard;

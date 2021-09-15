@@ -1,23 +1,78 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { decrypt, encrypt } from "../AuthorizedRequest/EncriptionDecription";
+import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
+export const editProfilePicture = createAsyncThunk(
+  "Edit Pic",
+  async ({ formData, isAdmin }, thunkAPI) => {
+    let axiosReqWithToken = getAxiosWithTokenObj();
+    let response;
+    if (isAdmin === false) {
+      response = await axiosReqWithToken.put("/users/editprofilepic", formData);
+    }
+    if (isAdmin === true) {
+      response = await axiosReqWithToken.put("/admin/editprofilepic", formData);
+    }
+    let data = response.data;
+    if (data.message === "updated") {
+      localStorage.setItem("userObj", data.payload);
+      let decrypedUser = decrypt(data.payload);
+      return decrypedUser;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+export const editUserProfile = createAsyncThunk(
+  "editUserProfile",
+  async (user, thunkAPI) => {
+    let axiosReqWithToken = getAxiosWithTokenObj();
+    let response;
+    let encryptedUser = encrypt(user);
+    if (user.isAdmin === true) {
+      response = await axiosReqWithToken.put("/admin/edituserprofile", {
+        encryptedUser: encryptedUser,
+      });
+    }
+    if (user.isAdmin === false) {
+      response = await axiosReqWithToken.put("/users/edituserprofile", {
+        encryptedUser: encryptedUser,
+      });
+    }
+    let data = response.data;
+    if (data.message === "updated") {
+      localStorage.setItem("userObj", data.payload);
+      let decrypedUser = decrypt(data.payload);
+      alert("User Updated");
+      return decrypedUser;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
 export const userLogin = createAsyncThunk(
   "loginUser",
   async (userCredentialObj, thunkAPI) => {
     // make post
     let data;
+    let encryptedUser = encrypt(userCredentialObj);
     if (userCredentialObj.type === false) {
-      let response = await axios.post("/users/login", userCredentialObj);
+      let response = await axios.post("/users/login", {
+        userCredential: encryptedUser,
+      });
       data = response.data;
     }
     if (userCredentialObj.type === true) {
-      let response = await axios.post("/admin/login", userCredentialObj);
+      let response = await axios.post("/admin/login", {
+        adminCredential: encryptedUser,
+      });
       data = response.data;
     }
     if (data.message === "success") {
       localStorage.setItem("token", data.token);
-      localStorage.setItem("usertype", userCredentialObj.type);
-      localStorage.setItem("userObj", JSON.stringify(data.user));
-      return data.user;
+      let encrypedUserObj = encrypt(data.user);
+      localStorage.setItem("userObj", encrypedUserObj);
+      return data;
     }
     if (
       data.message === "Invalid Password" ||
@@ -28,6 +83,7 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -50,7 +106,7 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [userLogin.fulfilled]: (state, action) => {
-      state.userObj = action.payload;
+      state.userObj = action.payload.user;
       state.isSuccess = true;
       state.isLoading = false;
       state.invalidLoginMessage = "";
@@ -60,6 +116,40 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [userLogin.rejected]: (state, action) => {
+      state.isSuccess = false;
+      state.isError = true;
+      state.isLoading = false;
+      state.invalidLoginMessage = action.payload.message;
+    },
+    [editProfilePicture.fulfilled]: (state, action) => {
+      state.userObj = action.payload;
+      state.isSuccess = true;
+      state.isLoading = false;
+      state.invalidLoginMessage = "";
+      state.isError = false;
+    },
+    [editProfilePicture.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isSuccess = false;
+    },
+    [editProfilePicture.rejected]: (state, action) => {
+      state.isSuccess = false;
+      state.isError = true;
+      state.isLoading = false;
+      state.invalidLoginMessage = action.payload;
+    },
+    [editUserProfile.fulfilled]: (state, action) => {
+      state.userObj = action.payload;
+      state.isSuccess = true;
+      state.isLoading = false;
+      state.invalidLoginMessage = "";
+      state.isError = false;
+    },
+    [editUserProfile.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isSuccess = false;
+    },
+    [editUserProfile.rejected]: (state, action) => {
       state.isSuccess = false;
       state.isError = true;
       state.isLoading = false;

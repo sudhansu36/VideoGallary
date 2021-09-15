@@ -36,7 +36,12 @@ const ContentCard = (props) => {
             <div className="my-2">
               {isAdmin ? (
                 <div className="d-flex justify-content-between mx-2">
-                  <i class="far fa-edit"></i>
+                  <i
+                    class="far fa-edit"
+                    onClick={() =>
+                      history.push(`/editcontent/${props.obj._id}`)
+                    }
+                  ></i>
                   <i
                     class="fas fa-trash"
                     onClick={() =>

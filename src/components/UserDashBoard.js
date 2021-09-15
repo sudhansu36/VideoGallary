@@ -2,10 +2,12 @@ import React, { useEffect, useContext } from "react";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
 import TypeCard from "./TypeCard";
 import { useQuery } from "react-query";
+import Banner from "./Banner";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingContext from "../context/toploadingbar/LoadingContext";
 import { getContent, clearContentState } from "../store/contentSlice";
 import { getWatchList } from "../store/watchlistSlice";
+import MovieSlider from "./MovieSlider";
 const fetchData = async () => {
   try {
     let axiosReqWithToken = getAxiosWithTokenObj();
@@ -55,7 +57,7 @@ const UserDashBoard = () => {
     setProgress(60);
     !isAdmin && dispatch(getWatchList({ email: email }));
     setProgress(100);
-  }, [isSuccess]);
+  }, []);
   // let { status, error, data } = useQuery("contentCollection", fetchData);
   // console.log("data", data);
   // if (status === "loading") {
@@ -69,9 +71,14 @@ const UserDashBoard = () => {
   // }
   return (
     <div className="fluid-container">
+      <Banner />
+
       <TypeCard title="Category" collection={categories} />
       <TypeCard title="Languages" collection={languages} />
       <TypeCard title="Genres" collection={genres} />
+      {genres.map((data) => {
+        return <MovieSlider type="Genres" data={data} />;
+      })}
     </div>
   );
 };

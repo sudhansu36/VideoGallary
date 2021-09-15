@@ -1,9 +1,12 @@
 const express = require("express");
 const expressAsyncHandler = require("express-async-handler");
 const bcryptjs = require("bcryptjs");
+const checkToken = require("./middlewares/verifyToken");
 const jwt = require("jsonwebtoken");
 const { userDpObj } = require("./middlewares/cloudinary");
-const { checkRole } = require("./middlewares/verifyRole");
+const { decrypt, encrypt } = require("./encryption/EncriptionDecription");
+const ObjectId = require("mongodb").ObjectId;
+
 const userApiObj = express.Router();
 userApiObj.use(express.json());
 let userCollection;
@@ -32,9 +35,9 @@ userApiObj.post(
 
 userApiObj.post(
   "/login",
-  checkRole(false),
   expressAsyncHandler(async (req, res) => {
-    let userCredentialObj = req.body;
+    let { userCredential } = req.body;
+    let userCredentialObj = decrypt(userCredential);
     let user = await userCollection.findOne({
       email: userCredentialObj.email,
     });
@@ -58,5 +61,53 @@ userApiObj.post(
     }
   })
 );
-
+userApiObj.get(
+  "/getalluser",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let alluser = await userCollection.find().toArray();
+    res.send({ message: alluser, payload: alluser });
+  })
+);
+userApiObj.put(
+  "/editprofilepic",
+  checkToken,
+  userDpObj.single("photo"),
+  expressAsyncHandler(async (req, res) => {
+    let encryptedUser = req.body.userObj;
+    let user = decrypt(encryptedUser);
+    user.image = req.file.path;
+    let updatedUser = { ...user };
+    delete user._id;
+    await userCollection.updateOne(
+      { _id: new ObjectId(updatedUser._id) },
+      { $set: user }
+    );
+    let newEncryptedUser = encrypt(updatedUser);
+    res.send({ message: "updated", payload: newEncryptedUser });
+  })
+);
+userApiObj.put(
+  "/edituserprofile",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let { encryptedUser } = req.body;
+    let user = decrypt(encryptedUser);
+    let id = user._id;
+    let oldUser = await userCollection.findOne({ _id: ObjectId(user._id) });
+    let status = await bcryptjs.compare(user.password, oldUser.password);
+    if (status === true) {
+      let hashedPassword = await bcryptjs.hash(user.npassword, 6);
+      user.password = hashedPassword;
+      delete user._id;
+      delete user.npassword;
+      await userCollection.updateOne({ _id: new ObjectId(id) }, { $set: user });
+      user._id = id;
+      let encUser = encrypt(user);
+      res.send({ message: "updated", payload: encUser });
+    } else {
+      res.send({ message: "Invalid Password" });
+    }
+  })
+);
 module.exports = userApiObj;

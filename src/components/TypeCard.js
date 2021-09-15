@@ -1,7 +1,6 @@
 import React from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const TypeCard = (props) => {
-  let { url } = useRouteMatch();
   let history = useHistory();
   let Color = [
     "#513b66",
