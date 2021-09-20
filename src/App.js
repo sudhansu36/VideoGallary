@@ -15,6 +15,7 @@ import UserDashBoard from "./components/UserDashBoard";
 import AdminDashBoard from "./components/AdminDashBoard";
 import { decrypt } from "./AuthorizedRequest/EncriptionDecription";
 import ProfilePage from "./components/ProfilePage";
+import FeedbackForm from "./components/FeedbackForm";
 function App() {
   let [token, setToken] = useState(null);
   let { isSuccess, userObj } = useSelector((state) => state.user);
@@ -125,6 +126,9 @@ function App() {
             </Route>
             <Route path={`/admindashboard/:name/alluser`}>
               <UserDetails />
+            </Route>
+            <Route path="/feedback">
+              <FeedbackForm />
             </Route>
           </Switch>
         </Suspense>

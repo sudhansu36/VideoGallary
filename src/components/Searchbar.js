@@ -16,7 +16,7 @@ const Searchbar = () => {
     history.push({ pathname: "/searchresult", state: filteredData });
   }
   return (
-    <form className="d-flex" onSubmit={handleSubmit(onSearch)}>
+    <form className="d-flex mx-auto" onSubmit={handleSubmit(onSearch)}>
       <input
         className="form-control me-1 noshadow"
         type="search"

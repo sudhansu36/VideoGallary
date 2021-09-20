@@ -53,7 +53,7 @@ const UserDashBoard = () => {
   let { email, isAdmin } = userObj;
   let dispatch = useDispatch(clearContentState);
   useEffect(() => {
-    if (contentCollection.languages === 0) {
+    if (contentCollection.length === 0) {
       setProgress(30);
       dispatch(getContent());
       setProgress(60);

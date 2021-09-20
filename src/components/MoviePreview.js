@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { addToWatchList, deleteFromWatchList } from "../store/watchlistSlice";
 import { addToFavorite, deleteFromFavourite } from "../store/favouriteSlice";
 import { deleteContent } from "../store/contentSlice";
+import Recommendations from "./Recommendations";
 const MoviePreview = () => {
   let { contentCollection, isSucess } = useSelector(
     (state) => state.contentCollection
@@ -18,7 +19,7 @@ const MoviePreview = () => {
     let value = contentCollection.find((value) => value._id === id);
     setState(value);
     // eslint-disable-next-line
-  }, [isSucess]);
+  }, [isSucess, id]);
   let { watchList } = useSelector((state) => state.watchlist);
   let { favourite } = useSelector((state) => state.favourite);
   function isPresent(mid) {
@@ -125,6 +126,7 @@ const MoviePreview = () => {
           </div>
         </div>
       )}
+      {state && <Recommendations genres={state.genres} />}
     </div>
   );
 };

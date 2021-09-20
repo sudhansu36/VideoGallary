@@ -8,7 +8,7 @@ const SearchResult = () => {
     setResult([...state]);
   }, [state]);
   return (
-    <div className="fluid-container">
+    <div className="fluid-container mt-4">
       {result.length === 0 ? (
         <p className="text-center text-info">No Result....</p>
       ) : (

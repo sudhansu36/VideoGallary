@@ -9,7 +9,7 @@ const VideoPlayer = () => {
         playing="true"
         controls="true"
         width="100%"
-        height="75%"
+        height="100%"
       />
     </div>
   );

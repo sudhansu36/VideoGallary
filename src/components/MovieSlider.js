@@ -36,7 +36,7 @@ const MovieSlider = ({ type, data }) => {
     <div className="fluid-container">
       {result.length !== 0 && (
         <>
-          <h3 className="text-light fw-bold pt-5 px-4 pb-0">{data}</h3>
+          <h3 className="text-light fw-bold pt-1 px-4 pb-0">{data}</h3>
           <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-1 px-4">
             {result.map((obj) => {
               return (

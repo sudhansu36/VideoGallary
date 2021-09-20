@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
+import LoadingContext from "../context/toploadingbar/LoadingContext";
 const UserDetails = () => {
+  const { setProgress } = useContext(LoadingContext);
   let [users, setUsers] = useState([]);
   useEffect(() => {
     async function fetchdata() {
       let axiosReqWithToken = getAxiosWithTokenObj();
+      setProgress(30);
       let response = await axiosReqWithToken.get("/users/getalluser");
+      setProgress(70);
       let data = response.data;
       if (data.message === "alluser") {
         setUsers(data.payload);
       } else {
         alert(data.message);
       }
+      setProgress(100);
     }
     fetchdata();
   }, []);
