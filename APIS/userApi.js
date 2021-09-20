@@ -66,7 +66,7 @@ userApiObj.get(
   checkToken,
   expressAsyncHandler(async (req, res) => {
     let alluser = await userCollection.find().toArray();
-    res.send({ message: alluser, payload: alluser });
+    res.send({ message: "alluser", payload: alluser });
   })
 );
 userApiObj.put(

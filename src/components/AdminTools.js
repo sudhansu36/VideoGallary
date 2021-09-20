@@ -32,15 +32,20 @@ const AdminTools = (props) => {
           </div>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
-          <img
-            src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"
-            alt=""
-            width="30px"
-            className="mx-auto"
-          />
-          <div className="card-body text-center p-0">
-            <p className="card-title text-light">View Users</p>
-          </div>
+          <NavLink
+            className="nav-link p-0 d-block rounded"
+            to={`${props.url}/alluser`}
+          >
+            <img
+              src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"
+              alt=""
+              width="30px"
+              className="d-flex mx-auto"
+            />
+            <div className="card-body text-center p-0">
+              <p className="card-title text-light">View Users</p>
+            </div>
+          </NavLink>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 mx-3">
           <img

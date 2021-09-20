@@ -1,11 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
-export const addToWatchList = createAsyncThunk(
-  "addToWatchList",
+export const getFavourite = createAsyncThunk(
+  "getFavourite",
+  async (userMail, thunkAPI) => {
+    let { email } = userMail;
+    let axiosReqWithToken = getAxiosWithTokenObj();
+    let data;
+    let response = await axiosReqWithToken.get(
+      `/favourite/getfavourite/${email}`
+    );
+    data = response.data;
+    if (data.message === "success") {
+      return data;
+    } else {
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+export const addToFavorite = createAsyncThunk(
+  "addToFavorite",
   async (content, thunkAPI) => {
     let axiosReqWithToken = getAxiosWithTokenObj();
     let response = await axiosReqWithToken.post(
-      "/watchlist/addtowatchlist",
+      "/favourite/addtofavorite",
       content
     );
     let data = response.data;
@@ -18,28 +35,12 @@ export const addToWatchList = createAsyncThunk(
     }
   }
 );
-export const getWatchList = createAsyncThunk(
-  "getWatchList",
-  async (userMail, thunkAPI) => {
-    let { email } = userMail;
-    let axiosReqWithToken = getAxiosWithTokenObj();
-    let data;
-    let response = await axiosReqWithToken.get(`/watchlist/getlist/${email}`);
-    data = response.data;
-    if (data.message === "success") {
-      return data;
-    } else {
-      // it will provide data to rejected state
-      return thunkAPI.rejectWithValue(data);
-    }
-  }
-);
-export const deleteFromWatchList = createAsyncThunk(
-  "deleteFromWatchList",
+export const deleteFromFavourite = createAsyncThunk(
+  "deleteFromFavorite",
   async (content, thunkAPI) => {
     let axiosReqWithToken = getAxiosWithTokenObj();
     let response = await axiosReqWithToken.put(
-      "/watchlist/deletewatchlist",
+      "/favourite/deletefavorite",
       content
     );
     let data = response.data;
@@ -51,66 +52,66 @@ export const deleteFromWatchList = createAsyncThunk(
     }
   }
 );
-const watchlistSlice = createSlice({
-  name: "watchlist",
+const favouriteSlice = createSlice({
+  name: "favorite",
   initialState: {
-    watchList: [],
+    favourite: [],
     isSuccess: false,
     isLoading: false,
     isError: false,
     invalidMessage: "",
   },
   reducers: {
-    clearWatchListState: (state) => {
+    clearFavouriteState: (state) => {
       state.isSuccess = false;
-      state.watchList = [];
+      state.favourite = [];
       return state;
     },
   },
   extraReducers: {
-    [addToWatchList.fulfilled]: (state, action) => {
-      state.watchList.push(action.payload.payload);
+    [addToFavorite.fulfilled]: (state, action) => {
+      state.favourite.push(action.payload.payload);
       state.isSuccess = true;
       state.isLoading = false;
       state.invalidMessage = "";
       state.isError = false;
     },
-    [addToWatchList.pending]: (state, action) => {
+    [addToFavorite.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [addToWatchList.rejected]: (state, action) => {
+    [addToFavorite.rejected]: (state, action) => {
       state.isSuccess = false;
       state.isError = true;
       state.isLoading = false;
       state.invalidMessage = action.payload.message;
     },
-    [getWatchList.fulfilled]: (state, action) => {
-      state.watchList = action.payload.payload;
+    [getFavourite.fulfilled]: (state, action) => {
+      state.favourite = action.payload.payload;
       state.isSuccess = true;
       state.isLoading = false;
       state.invalidMessage = "";
       state.isError = false;
     },
-    [getWatchList.pending]: (state, action) => {
+    [getFavourite.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [getWatchList.rejected]: (state, action) => {
+    [getFavourite.rejected]: (state, action) => {
       state.isSuccess = false;
       state.isError = true;
       state.isLoading = false;
       state.invalidMessage = action.payload.message;
     },
-    [deleteFromWatchList.fulfilled]: (state, action) => {
-      state.watchList.splice(action.payload.index, 1);
+    [deleteFromFavourite.fulfilled]: (state, action) => {
+      state.favourite.splice(action.payload.index, 1);
       state.isSuccess = true;
       state.isLoading = false;
       state.invalidMessage = "";
       state.isError = false;
     },
-    [deleteFromWatchList.pending]: (state, action) => {
+    [deleteFromFavourite.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [deleteFromWatchList.rejected]: (state, action) => {
+    [deleteFromFavourite.rejected]: (state, action) => {
       state.isSuccess = false;
       state.isError = true;
       state.isLoading = false;
@@ -118,5 +119,5 @@ const watchlistSlice = createSlice({
     },
   },
 });
-export const { clearWatchListState } = watchlistSlice.actions;
-export default watchlistSlice.reducer;
+export const { clearFavouriteState } = favouriteSlice.actions;
+export default favouriteSlice.reducer;

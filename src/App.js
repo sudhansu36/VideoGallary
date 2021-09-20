@@ -10,6 +10,7 @@ import { reLogin } from "./store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "./store/contentSlice";
 import { getWatchList } from "./store/watchlistSlice";
+import { getFavourite } from "./store/favouriteSlice";
 import UserDashBoard from "./components/UserDashBoard";
 import AdminDashBoard from "./components/AdminDashBoard";
 import { decrypt } from "./AuthorizedRequest/EncriptionDecription";
@@ -22,7 +23,10 @@ function App() {
   let MoviePreview = React.lazy(() => import("./components/MoviePreview"));
   let AddContent = React.lazy(() => import("./components/AddContent"));
   let MyWatchList = React.lazy(() => import("./components/MyWatchList"));
-  let EditComponent = React.lazy(() => import("./components/EditComponent"));
+  let MyFavourite = React.lazy(() => import("./components/MyFavourite"));
+  let EditContent = React.lazy(() => import("./components/EditContent"));
+  let VideoPlayer = React.lazy(() => import("./components/VideoPlayer"));
+  let UserDetails = React.lazy(() => import("./components/UserDetails"));
   let [rmodal, setRModal] = useState(false);
   let [lmodal, setLModal] = useState(false);
   useEffect(() => {
@@ -44,42 +48,43 @@ function App() {
   let dispatch = useDispatch();
   useEffect(() => {
     if (JSON.stringify(userObj) === JSON.stringify({})) {
+      console.log("I am");
       let token = window.localStorage.getItem("token");
       let encryptedUser = window.localStorage.getItem("userObj");
-
       if (token && encryptedUser) {
+        console.log("keep");
         let user = decrypt(encryptedUser);
         dispatch(reLogin(user));
         dispatch(getContent());
         !user.isAdmin && dispatch(getWatchList({ email: user.email }));
+        !user.isAdmin && dispatch(getFavourite({ email: user.email }));
       }
     }
     // eslint-disable-next-line
-  }, [isSuccess]);
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
-      <Suspense
-        fallback={
-          <div
-            className="spinner-border text-light text-center my-2"
-            role="status"
-          >
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        }
-      >
-        <BrowserRouter>
-          <div className="App">
-            <Loadingbar />
-            <Navbar
-              rmodal={rmodal}
-              lmodal={lmodal}
-              setLModal={setLModal}
-              setRModal={setRModal}
-              token={token}
-              setToken={setToken}
-            />
-          </div>
+      <BrowserRouter>
+        <div className="App">
+          <Loadingbar />
+          <Navbar
+            rmodal={rmodal}
+            lmodal={lmodal}
+            setLModal={setLModal}
+            setRModal={setRModal}
+            token={token}
+            setToken={setToken}
+          />
+        </div>
+        <Suspense
+          fallback={
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          }
+        >
           <Switch>
             <Route exact path="/">
               <Home setLModal={setLModal} />
@@ -103,19 +108,28 @@ function App() {
             <Route path="/mywatchlist">
               <MyWatchList />
             </Route>
+            <Route path="/myfavourite">
+              <MyFavourite />
+            </Route>
             <Route path="/searchresult">
               <SearchResult />
             </Route>
             <Route path="/editcontent/:mid">
-              <EditComponent />
+              <EditContent />
             </Route>
             <Route path="/myprofile/:name">
               <ProfilePage />
             </Route>
+            <Route path="/playvideo">
+              <VideoPlayer />
+            </Route>
+            <Route path={`/admindashboard/:name/alluser`}>
+              <UserDetails />
+            </Route>
           </Switch>
-          <Footer />
-        </BrowserRouter>
-      </Suspense>
+        </Suspense>
+        <Footer />
+      </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

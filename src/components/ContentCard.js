@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Zoom from "react-reveal/Zoom";
 import { addToWatchList, deleteFromWatchList } from "../store/watchlistSlice";
+import { addToFavorite, deleteFromFavourite } from "../store/favouriteSlice";
 import { deleteContent } from "../store/contentSlice";
 const ContentCard = (props) => {
   let history = useHistory();
@@ -13,8 +14,13 @@ const ContentCard = (props) => {
     history.push(`/result/${movie._id}`);
   }
   let { watchList } = useSelector((state) => state.watchlist);
-  function isPresent(mname) {
-    let list = watchList.find((obj) => obj.mname === mname);
+  let { favourite } = useSelector((state) => state.favourite);
+  function isPresent(mid) {
+    let list = watchList.find((id) => id === mid);
+    return list;
+  }
+  function isFavourite(mid) {
+    let list = favourite.find((id) => id === mid);
     return list;
   }
   const [isShown, setIsShown] = useState(false);
@@ -32,7 +38,7 @@ const ContentCard = (props) => {
           onClick={() => moviePreview(props.obj)}
         />
         <Zoom top collapse when={isShown}>
-          <div className="card-body">
+          <div className="card-body py-0">
             <div className="my-2">
               {isAdmin ? (
                 <div className="d-flex justify-content-between mx-2">
@@ -53,13 +59,34 @@ const ContentCard = (props) => {
                 <div className="d-flex justify-content-between mx-2">
                   <i className="far fa-play-circle"></i>
                   <div>
-                    <i className="fas fa-heart px-1"></i>
-                    {isPresent(props.obj.mname) === undefined ? (
+                    {isFavourite(props.obj._id) === undefined ? (
+                      <i
+                        className="fas fa-heart px-1"
+                        onClick={() =>
+                          dispatch(
+                            addToFavorite({ email: email, id: props.obj._id })
+                          )
+                        }
+                      ></i>
+                    ) : (
+                      <i
+                        className="fas fa-heart px-1 text-danger"
+                        onClick={() =>
+                          dispatch(
+                            deleteFromFavourite({
+                              email: email,
+                              id: props.obj._id,
+                            })
+                          )
+                        }
+                      ></i>
+                    )}
+                    {isPresent(props.obj._id) === undefined ? (
                       <i
                         className="fas fa-plus px-1"
                         onClick={() =>
                           dispatch(
-                            addToWatchList({ email: email, content: props.obj })
+                            addToWatchList({ email: email, id: props.obj._id })
                           )
                         }
                       ></i>
@@ -70,7 +97,7 @@ const ContentCard = (props) => {
                           dispatch(
                             deleteFromWatchList({
                               email: email,
-                              content: props.obj,
+                              id: props.obj._id,
                             })
                           )
                         }

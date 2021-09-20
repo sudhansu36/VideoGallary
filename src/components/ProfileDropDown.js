@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearLoginState } from "../store/userSlice";
 import { clearContentState } from "../store/contentSlice";
 import { clearWatchListState } from "../store/watchlistSlice";
+import {clearFavouriteState} from "../store/favouriteSlice"
 const ProfileDropDown = ({ setToken }) => {
   let { userObj } = useSelector((state) => state.user);
   let { isAdmin } = userObj;
@@ -13,6 +14,7 @@ const ProfileDropDown = ({ setToken }) => {
     dispatch(clearContentState());
     dispatch(clearLoginState());
     dispatch(clearWatchListState());
+    dispatch(clearFavouriteState())
     setToken(null);
   };
   return (
@@ -42,6 +44,17 @@ const ProfileDropDown = ({ setToken }) => {
               style={{ color: "#2f4054" }}
             >
               My Watchlist
+            </NavLink>
+          </li>
+        )}
+        {!isAdmin && (
+          <li className="list-group-item list-group-item-info">
+            <NavLink
+              className="dropdown-item bg-transparent fw-bold"
+              to="/myfavourite"
+              style={{ color: "#2f4054" }}
+            >
+              My Favourite
             </NavLink>
           </li>
         )}

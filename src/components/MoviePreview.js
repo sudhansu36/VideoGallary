@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { addToWatchList, deleteFromWatchList } from "../store/watchlistSlice";
+import { addToFavorite, deleteFromFavourite } from "../store/favouriteSlice";
+import { deleteContent } from "../store/contentSlice";
 const MoviePreview = () => {
   let { contentCollection, isSucess } = useSelector(
     (state) => state.contentCollection
   );
+  let { userObj } = useSelector((state) => state.user);
+  let { isAdmin, email } = userObj;
+  let history = useHistory();
+  let dispatch = useDispatch();
   let [state, setState] = useState(null);
   let { id } = useParams();
   useEffect(() => {
@@ -12,17 +19,111 @@ const MoviePreview = () => {
     setState(value);
     // eslint-disable-next-line
   }, [isSucess]);
+  let { watchList } = useSelector((state) => state.watchlist);
+  let { favourite } = useSelector((state) => state.favourite);
+  function isPresent(mid) {
+    let list = watchList.find((id) => id === mid);
+    return list;
+  }
+  function isFavourite(mid) {
+    let list = favourite.find((id) => id === mid);
+    return list;
+  }
   return (
-    <div className="card bg-dark text-white">
+    <div>
       {state && (
-        <>
-          <img src={state.image} className="card-img" alt="..." />
-          <div className="card-img-overlay col-7 opacity-75">
-            <h5 className="card-title">{state.title}</h5>
-            <p className="card-text">{state.mdesc}</p>
-            <p className="card-text">{state.rdate}</p>
+        <div
+          className="banner"
+          style={{
+            backgroundSize: "cover",
+            backgroundImage: `url(${state.image})`,
+            backgroundPosition: "top",
+          }}
+        >
+          <div className="text-light pb-5 px-3 d-flex flex-column justify-content-end banner_content">
+            <h1 className="pb-0">{state?.mname}</h1>
+            <p>{state.rdate}</p>
+            <p>{state?.mdesc}</p>
+            <div>
+              {state.genres.map((genre, index) => {
+                return (
+                  <button className="px-2 me-2 btn btn-dark text-light">
+                    {genre}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-5">
+              {isAdmin ? (
+                <div className="d-flex justify-content-between mx-2">
+                  <i
+                    className="far fa-edit fs-2"
+                    onClick={() => history.push(`/editcontent/${state._id}`)}
+                  ></i>
+                  <i
+                    className="fas fa-trash fs-2"
+                    onClick={() =>
+                      dispatch(deleteContent({ mname: state.mname }))
+                    }
+                  ></i>
+                </div>
+              ) : (
+                <div className="d-flex justify-content-between mx-2">
+                  <i
+                    className="far fa-play-circle fs-2"
+                    onClick={() => history.push("/playvideo")}
+                  ></i>
+                  <div>
+                    {isFavourite(state._id) === undefined ? (
+                      <i
+                        className="fas fa-heart px-2 fs-2"
+                        onClick={() =>
+                          dispatch(
+                            addToFavorite({ email: email, id: state._id })
+                          )
+                        }
+                      ></i>
+                    ) : (
+                      <i
+                        className="fas fa-heart px-2 fs-2 text-danger"
+                        onClick={() =>
+                          dispatch(
+                            deleteFromFavourite({
+                              email: email,
+                              id: state._id,
+                            })
+                          )
+                        }
+                      ></i>
+                    )}
+                    {isPresent(state._id) === undefined ? (
+                      <i
+                        className="fas fa-plus px-2 fs-2"
+                        onClick={() =>
+                          dispatch(
+                            addToWatchList({ email: email, id: state._id })
+                          )
+                        }
+                      ></i>
+                    ) : (
+                      <i
+                        className="fas fa-minus px-2 fs-2"
+                        onClick={() =>
+                          dispatch(
+                            deleteFromWatchList({
+                              email: email,
+                              id: state._id,
+                            })
+                          )
+                        }
+                      ></i>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

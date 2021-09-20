@@ -26,21 +26,20 @@ watchlistApiObj.post(
   "/addtowatchlist",
   checkToken,
   expressAsyncHandler(async (req, res) => {
-    let { email, content } = req.body;
-    let newContent = JSON.parse(JSON.stringify(content));
+    let { email, id } = req.body;
     let oldContent = await watchlistCollection.findOne({ email: email });
     if (oldContent) {
       await watchlistCollection.updateOne(
         { email: email },
-        { $addToSet: { watchlist: newContent } }
+        { $addToSet: { watchlist: id } }
       );
-      res.send({ message: "success", payload: newContent });
+      res.send({ message: "success", payload: id });
     } else {
       await watchlistCollection.insertOne({
         email: email,
-        watchlist: [{ ...newContent }],
+        watchlist: [id],
       });
-      res.send({ message: "success", payload: newContent });
+      res.send({ message: "success", payload: id });
     }
   })
 );
@@ -48,13 +47,12 @@ watchlistApiObj.put(
   "/deletewatchlist",
   checkToken,
   expressAsyncHandler(async (req, res) => {
-    let { email, content } = req.body;
-    let newContent = JSON.parse(JSON.stringify(content));
+    let { email, id } = req.body;
     let { watchlist } = await watchlistCollection.findOne({ email: email });
-    let index = watchlist.findIndex((value) => value.mname === content.mname);
+    let index = watchlist.findIndex((value) => value === id);
     await watchlistCollection.updateOne(
       { email: email },
-      { $pull: { watchlist: { mname: newContent.mname } } }
+      { $pull: { watchlist: id } }
     );
     res.send({ message: "success", index: index });
   })

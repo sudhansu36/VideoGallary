@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useQueryClient } from "react-query";
+// import { useQueryClient } from "react-query";
 import ContentCard from "./ContentCard";
 const ResultPage = () => {
   let { contentCollection, isSuccess } = useSelector(
@@ -32,6 +32,7 @@ const ResultPage = () => {
         })
       );
     }
+    // eslint-disable-next-line
   }, [isSuccess, data]);
   return (
     <div className="fluid-container my-4">

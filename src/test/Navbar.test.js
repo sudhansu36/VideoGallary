@@ -3,7 +3,10 @@ import Navbar from "../components/Navbar";
 import { store } from "../store/store";
 import { Provider } from "react-redux";
 import LoadingState from "../context/toploadingbar/LoadingState";
-test("renders SignIn in Navbar", () => {
+import userEvent from "@testing-library/user-event";
+import { useState } from "react";
+
+test("renders Basic Element in Navbar", () => {
   render(
     <Provider store={store}>
       <LoadingState>
@@ -13,9 +16,32 @@ test("renders SignIn in Navbar", () => {
   );
   const SignInElement = screen.getByText(/SignIn/i);
   expect(SignInElement).toBeInTheDocument();
-
   const PriElement = screen.getByText(/Pri/i);
   expect(PriElement).toBeInTheDocument();
   const lixElement = screen.getByText(/lix/i);
   expect(lixElement).toBeInTheDocument();
+});
+test("renders When Login Modal Is true in Navbar", () => {
+  render(
+    <Provider store={store}>
+      <LoadingState>
+        <Navbar lmodal={true}/>
+      </LoadingState>
+    </Provider>
+  );
+  const LoginElement = screen.getByText(/LOGIN/i);
+  expect(LoginElement).toBeInTheDocument();
+  const SIGNINElement = screen.getByText(/SIGN IN/i);
+  expect(SIGNINElement).toBeInTheDocument();
+  const SIGNUPElement = screen.getByText(/SIGN UP/i);
+  expect(SIGNUPElement).toBeInTheDocument();
+  const SwitchElement = screen.getByText(/Switch it on if you are admin/i);
+  expect(SwitchElement).toBeInTheDocument();
+  const EmailElement = screen.getByPlaceholderText(/Email/i);
+  expect(EmailElement).toBeInTheDocument();
+  const PasswordElement = screen.getByPlaceholderText(/Password/i);
+  expect(PasswordElement).toBeInTheDocument();
+  const SignupBtn = screen.getByRole("button", { name: "SIGN UP" });
+  userEvent.click(SignupBtn);
+  expect(SignupBtn).toBeVisible();
 });

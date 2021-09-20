@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { editContent } from "../store/contentSlice";
-import ComponentForm from "./ComponentForm";
-const EditComponent = () => {
+import ContentForm from "./ContentForm";
+const EditContent = () => {
   let dispatch = useDispatch();
   let history = useHistory();
   let { contentCollection } = useSelector((state) => state.contentCollection);
@@ -43,7 +43,7 @@ const EditComponent = () => {
         className="row pt-5 mx-auto"
         style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
       >
-        <ComponentForm
+        <ContentForm
           register={register}
           type="Update"
           handleSubmit={handleSubmit}
@@ -56,4 +56,4 @@ const EditComponent = () => {
   );
 };
 
-export default EditComponent;
+export default EditContent;

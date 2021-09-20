@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { addContent } from "../store/contentSlice";
 import { useDispatch } from "react-redux";
 import LoadingContext from "../context/toploadingbar/LoadingContext";
-import ComponentForm from "./ComponentForm";
+import ContentForm from "./ContentForm";
 const AddContent = () => {
   let dispatch = useDispatch();
   const { setProgress } = useContext(LoadingContext);
@@ -33,9 +33,9 @@ const AddContent = () => {
   return (
     <div className="mt-5 container">
       <div className="row">
-        <ComponentForm
+        <ContentForm
           register={register}
-          type="Update"
+          type="Add"
           handleSubmit={handleSubmit}
           onContentSelect={onContentSelect}
           onContentSubmit={onAddContentSubmit}

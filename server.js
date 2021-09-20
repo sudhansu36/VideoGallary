@@ -7,10 +7,14 @@ const userApiObj = require("./APIS/userApi");
 const adminApiObj = require("./APIS/adminApi");
 const contentApiObj = require("./APIS/contentApi");
 const watchlistApiObj = require("./APIS/watchlistApi");
+const favouriteApiObj = require("./APIS/favouriteApi");
+const trashApiObj = require("./APIS/trashApi");
 app.use("/users", userApiObj);
 app.use("/admin", adminApiObj);
 app.use("/content", contentApiObj);
 app.use("/watchlist", watchlistApiObj);
+app.use("/favourite", favouriteApiObj);
+app.use("/trash", trashApiObj);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./build", "index.html"));
 });
@@ -18,7 +22,7 @@ const mongoClient = require("mongodb").MongoClient;
 const dbUrl = process.env.DATABASE_URL;
 mongoClient.connect(dbUrl, (err, client) => {
   if (err) {
-    console.log("err in db connect", err);
+    console.log("Error in db connect", err);
   } else {
     let databaseObject = client.db("videogallery");
     let userCollection = databaseObject.collection("usercollection");
@@ -29,6 +33,10 @@ mongoClient.connect(dbUrl, (err, client) => {
     app.set("contentCollection", contentCollection);
     let watchlistCollection = databaseObject.collection("watchlistcollection");
     app.set("watchlistCollection", watchlistCollection);
+    let favouriteCollection = databaseObject.collection("favouritecollection");
+    app.set("favouriteCollection", favouriteCollection);
+    let trashCollection = databaseObject.collection("trashcollection");
+    app.set("trashCollection", trashCollection);
     console.log("Connected to DB");
   }
 });

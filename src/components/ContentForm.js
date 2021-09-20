@@ -1,6 +1,6 @@
 import React from "react";
 
-const ComponentForm = ({
+const ContentForm = ({
   register,
   handleSubmit,
   onContentSubmit,
@@ -177,4 +177,4 @@ const ComponentForm = ({
   );
 };
 
-export default ComponentForm;
+export default ContentForm;
