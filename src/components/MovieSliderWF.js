@@ -22,7 +22,7 @@ const MovieSliderWF = ({ type }) => {
       ]);
     }
     // eslint-disable-next-line
-  }, [watchList, favourite]);
+  }, [contentCollection, watchList, favourite]);
   function moviePreview(movie) {
     history.push(`/result/${movie._id}`);
   }
