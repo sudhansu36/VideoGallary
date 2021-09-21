@@ -28,6 +28,7 @@ function App() {
   let EditContent = React.lazy(() => import("./components/EditContent"));
   let VideoPlayer = React.lazy(() => import("./components/VideoPlayer"));
   let UserDetails = React.lazy(() => import("./components/UserDetails"));
+  let ViewFeedback = React.lazy(() => import("./components/ViewFeedback"));
   let [rmodal, setRModal] = useState(false);
   let [lmodal, setLModal] = useState(false);
   useEffect(() => {
@@ -49,11 +50,9 @@ function App() {
   let dispatch = useDispatch();
   useEffect(() => {
     if (JSON.stringify(userObj) === JSON.stringify({})) {
-      console.log("I am");
       let token = window.localStorage.getItem("token");
       let encryptedUser = window.localStorage.getItem("userObj");
       if (token && encryptedUser) {
-        console.log("keep");
         let user = decrypt(encryptedUser);
         dispatch(reLogin(user));
         dispatch(getContent());
@@ -129,6 +128,9 @@ function App() {
             </Route>
             <Route path="/feedback">
               <FeedbackForm />
+            </Route>
+            <Route path={`/admindashboard/:name/showfeedback`}>
+              <ViewFeedback />
             </Route>
           </Switch>
         </Suspense>

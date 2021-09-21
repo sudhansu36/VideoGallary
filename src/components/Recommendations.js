@@ -16,7 +16,7 @@ const Recommendations = ({ genres }) => {
     <div className="fluid-container">
       {filteredData.length !== 0 && (
         <>
-          <h3 className="text-light fw-bold pt-3 px-4 pb-0">Recommended</h3>
+          <h3 className="text-light fw-bold pt-3 px-4 pb-0">Similar</h3>
           <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-1 px-4">
             {filteredData.map((obj) => {
               return (

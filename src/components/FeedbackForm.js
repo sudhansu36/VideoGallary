@@ -30,6 +30,19 @@ const FeedbackForm = () => {
       >
         <div className="form-floating mb-3">
           <input
+            type="text"
+            className="form-control"
+            id="fname"
+            placeholder="Name"
+            {...register("name", { required: true })}
+          />
+          <label htmlFor="fname">Name</label>
+        </div>
+        {errors.name?.type === "required" && (
+          <p className="alert alert-danger p-1">* Email is Required</p>
+        )}
+        <div className="form-floating mb-3">
+          <input
             type="email"
             className="form-control"
             id="email"

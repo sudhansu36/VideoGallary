@@ -16,17 +16,18 @@ const AdminTools = (props) => {
               className="d-flex mx-auto"
             />
             <div className="card-body text-center p-0">
-              <p className="card-title text-primary">Add Content</p>
+              <p className="card-title text-light">Add Content</p>
             </div>
           </NavLink>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
           <img
-            src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"
+            src="https://img.icons8.com/ios-glyphs/30/4a90e2/trash--v1.png"
             alt=""
             width="30px"
-            className="mx-auto"
+            className="d-flex mx-auto"
           />
+
           <div className="card-body text-center p-0">
             <p className="card-title text-light">Deleted Content</p>
           </div>
@@ -37,7 +38,7 @@ const AdminTools = (props) => {
             to={`${props.url}/alluser`}
           >
             <img
-              src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"
+              src="https://img.icons8.com/ios-glyphs/30/4a90e2/group.png"
               alt=""
               width="30px"
               className="d-flex mx-auto"
@@ -48,15 +49,20 @@ const AdminTools = (props) => {
           </NavLink>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 mx-3">
-          <img
-            src="https://img.icons8.com/ios-filled/50/4a90e2/sending-video-frames.png"
-            alt=""
-            width="30px"
-            className="mx-auto"
-          />
-          <div className="card-body text-center p-0">
-            <p className="card-title text-light">Public Feedback</p>
-          </div>
+          <NavLink
+            className="nav-link p-0 d-block rounded"
+            to={`${props.url}/showfeedback`}
+          >
+            <img
+              src="https://img.icons8.com/external-those-icons-fill-those-icons/24/4a90e2/external-feedback-feedback-those-icons-fill-those-icons-3.png"
+              alt=""
+              width="30px"
+              className="d-flex mx-auto"
+            />
+            <div className="card-body text-center p-0">
+              <p className="card-title text-light">Public Feedback</p>
+            </div>
+          </NavLink>
         </div>
       </div>
     </div>

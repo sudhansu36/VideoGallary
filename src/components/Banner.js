@@ -24,8 +24,8 @@ const Banner = () => {
             backgroundPosition: "top",
           }}
         >
-          <div className="text-light px-3 d-flex flex-column justify-content-end banner_content">
-            <h1 className="pt-5">{result?.mname}</h1>
+          <div className="text-light px-3 pb-5 d-flex flex-column justify-content-end banner_content">
+            <h1>{result?.mname}</h1>
             <p>{result?.mdesc}</p>
           </div>
         </div>

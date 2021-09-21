@@ -8,6 +8,7 @@ import LoadingContext from "../context/toploadingbar/LoadingContext";
 import { getContent, clearContentState } from "../store/contentSlice";
 import { getWatchList } from "../store/watchlistSlice";
 import MovieSlider from "./MovieSlider";
+import MovieSliderWF from "./MovieSliderWF";
 import { getFavourite } from "../store/favouriteSlice";
 // const fetchData = async () => {
 //   try {
@@ -77,10 +78,11 @@ const UserDashBoard = () => {
   return (
     <div className="fluid-container">
       <Banner />
-
-      <TypeCard title="Category" collection={categories} />
-      <TypeCard title="Languages" collection={languages} />
+      <MovieSliderWF type="Watchlist" />
+      <MovieSliderWF type="Favourite" />
       <TypeCard title="Genres" collection={genres} />
+      <TypeCard title="Languages" collection={languages} />
+      <TypeCard title="Category" collection={categories} />
       {genres.map((data) => {
         return <MovieSlider type="Genres" data={data} />;
       })}

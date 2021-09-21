@@ -48,7 +48,10 @@ const MoviePreview = () => {
             <div>
               {state.genres.map((genre, index) => {
                 return (
-                  <button className="px-2 me-2 btn btn-dark text-light">
+                  <button
+                    className="px-2 me-2 btn btn-dark text-light"
+                    key={index}
+                  >
                     {genre}
                   </button>
                 );
@@ -60,6 +63,10 @@ const MoviePreview = () => {
                   <i
                     className="far fa-edit fs-2"
                     onClick={() => history.push(`/editcontent/${state._id}`)}
+                  ></i>
+                  <i
+                    className="far fa-play-circle fs-2"
+                    onClick={() => history.push("/playvideo")}
                   ></i>
                   <i
                     className="fas fa-trash fs-2"

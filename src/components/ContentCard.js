@@ -49,6 +49,10 @@ const ContentCard = (props) => {
                     }
                   ></i>
                   <i
+                    className="far fa-play-circle"
+                    onClick={() => history.push("/playvideo")}
+                  ></i>
+                  <i
                     class="fas fa-trash"
                     onClick={() =>
                       dispatch(deleteContent({ mname: props.obj.mname }))
@@ -57,7 +61,10 @@ const ContentCard = (props) => {
                 </div>
               ) : (
                 <div className="d-flex justify-content-between mx-2">
-                  <i className="far fa-play-circle"></i>
+                  <i
+                    className="far fa-play-circle"
+                    onClick={() => history.push("/playvideo")}
+                  ></i>
                   <div>
                     {isFavourite(props.obj._id) === undefined ? (
                       <i

@@ -19,6 +19,7 @@ const UserDetails = () => {
       setProgress(100);
     }
     fetchdata();
+    // eslint-disable-next-line
   }, []);
   return (
     <div className="container mx-auto mt-5 table-responsive">
