@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userLogin, clearLoginState } from "../store/userSlice";
 import { Modal } from "react-bootstrap";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
+import { userLogin, clearLoginState } from "../../store/userSlice";
 const Login = (props) => {
   const { setProgress } = useContext(LoadingContext);
   let history = useHistory();
-  let { userObj, isSuccess, invalidLoginMessage } = useSelector(
-    (state) => state.user
-  );
   let dispatch = useDispatch(clearLoginState);
   let [userCredentialObj, setUserCredentialObj] = useState({
     type: "",
@@ -22,6 +19,25 @@ const Login = (props) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // Geting value from Store
+  let { userObj, isSuccess, invalidLoginMessage } = useSelector(
+    (state) => state.user
+  );
+  // This is for Navigating to Dashboard after successful Login
+  useEffect(() => {
+    // for Userdashboard
+    if (isSuccess === true && userCredentialObj.type === false) {
+      props.setLModal(false);
+      history.push(`/userdashboard/${userObj.name}`);
+    }
+    // for AdminDashboard
+    if (isSuccess === true && userCredentialObj.type === true) {
+      props.setLModal(false);
+      history.push(`/admindashboard/${userObj.name}`);
+    }
+    // eslint-disable-next-line
+  }, [isSuccess, userCredentialObj]);
+  // When you clicked on Sign In
   function onLoginFormSubmit(userObj) {
     setProgress(30);
     setUserCredentialObj({ ...userObj });
@@ -29,17 +45,6 @@ const Login = (props) => {
     dispatch(userLogin({ ...userObj }));
     setProgress(100);
   }
-  useEffect(() => {
-    if (isSuccess === true && userCredentialObj.type === false) {
-      props.setLModal(false);
-      history.push(`/userdashboard/${userObj.name}`);
-    }
-    if (isSuccess === true && userCredentialObj.type === true) {
-      props.setLModal(false);
-      history.push(`/admindashboard/${userObj.name}`);
-    }
-    // eslint-disable-next-line
-  }, [isSuccess, userCredentialObj]);
   return (
     <Modal show={props.lmodal} centered onHide={() => props.setLModal(false)}>
       <Modal.Header className="d-flex justify-content-between">
@@ -57,6 +62,7 @@ const Login = (props) => {
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onLoginFormSubmit)}>
+          {/* User Type */}
           <div className="form-check form-switch">
             <label className="form-check-label me-2" htmlFor="usertype">
               User/Admin (*Switch it on if you are admin..)
@@ -68,6 +74,7 @@ const Login = (props) => {
               {...register("type")}
             />
           </div>
+          {/* Email */}
           <div className="form-floating mb-3">
             <input
               type="email"
@@ -82,6 +89,7 @@ const Login = (props) => {
               <label htmlFor="Lemail">Email</label>
             )}
           </div>
+          {/* Password */}
           <div className="form-floating mb-3">
             <input
               type="password"
@@ -97,7 +105,7 @@ const Login = (props) => {
               <label htmlFor="Lpassword">Password</label>
             )}
           </div>
-
+          {/* Sign in Button */}
           <button className="btn btn-success mx-auto mb-3 d-block">
             SIGN IN{" "}
             <img
@@ -109,6 +117,7 @@ const Login = (props) => {
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
         <p className="text-dark">New User..</p>
+        {/* Siup in Button */}
         <button
           type="button"
           className="btn btn-warning btn-sm text-light"

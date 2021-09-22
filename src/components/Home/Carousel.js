@@ -101,5 +101,5 @@ const Carousel = () => {
     </div>
   );
 };
-
 export default Carousel;
+// This is only used in Home.js

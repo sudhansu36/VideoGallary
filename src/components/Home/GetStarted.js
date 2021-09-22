@@ -1,5 +1,4 @@
 import React from "react";
-
 const GetStarted = ({ setLModal }) => {
   return (
     <button
@@ -11,5 +10,5 @@ const GetStarted = ({ setLModal }) => {
     </button>
   );
 };
-
 export default GetStarted;
+// This is only used in Home.js

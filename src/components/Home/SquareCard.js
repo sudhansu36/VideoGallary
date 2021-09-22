@@ -1,9 +1,9 @@
 import React from "react";
-
 const SquareCard = () => {
   return (
     <div>
       <div className="container row row-cols-md-4 row-cols-2 row-cols-sm-2 row-cols-lg-4 g-4 mx-auto px-2 my-4 text-center">
+        {/* 4 Figure Image */}
         <div className="col ">
           <figure className="figure">
             <img
@@ -48,5 +48,5 @@ const SquareCard = () => {
     </div>
   );
 };
-
 export default SquareCard;
+// This is only used in Home.js

@@ -1,14 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { clearLoginState } from "../store/userSlice";
-import { clearContentState } from "../store/contentSlice";
-import { clearWatchListState } from "../store/watchlistSlice";
-import {clearFavouriteState} from "../store/favouriteSlice"
+import { clearLoginState } from "../../store/userSlice";
+import { clearContentState } from "../../store/contentSlice";
+import { clearWatchListState } from "../../store/watchlistSlice";
+import {clearFavouriteState} from "../../store/favouriteSlice"
 const ProfileDropDown = ({ setToken }) => {
   let { userObj } = useSelector((state) => state.user);
   let { isAdmin } = userObj;
   let dispatch = useDispatch();
+  // Logout Function
   const onUserLogout = () => {
     localStorage.clear();
     dispatch(clearContentState());
@@ -36,6 +37,7 @@ const ProfileDropDown = ({ setToken }) => {
         <span className="ms-2 text-light">{userObj.name}</span>
       </div>
       <ul className="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0 m-0">
+      {/* My Watchlist */}
         {!isAdmin && (
           <li className="list-group-item list-group-item-info">
             <NavLink
@@ -47,6 +49,7 @@ const ProfileDropDown = ({ setToken }) => {
             </NavLink>
           </li>
         )}
+        {/* My Favourite */}
         {!isAdmin && (
           <li className="list-group-item list-group-item-info">
             <NavLink
@@ -58,6 +61,7 @@ const ProfileDropDown = ({ setToken }) => {
             </NavLink>
           </li>
         )}
+        {/* Account & Setting */}
         <li className="list-group-item list-group-item-info">
           <NavLink
             className="dropdown-item bg-transparent fw-bold"
@@ -68,6 +72,7 @@ const ProfileDropDown = ({ setToken }) => {
             Account & Setting
           </NavLink>
         </li>
+        {/* Logout */}
         <li className="list-group-item  list-group-item-info">
           <NavLink
             className="dropdown-item bg-transparent fw-bold"
@@ -83,5 +88,4 @@ const ProfileDropDown = ({ setToken }) => {
     </>
   );
 };
-
 export default ProfileDropDown;

@@ -1,24 +1,20 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Loadingbar from "./components/Loadingbar";
 import React, { useState, useEffect, Suspense } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { reLogin } from "./store/userSlice";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { reLogin } from "./store/userSlice";
 import { getContent } from "./store/contentSlice";
 import { getWatchList } from "./store/watchlistSlice";
 import { getFavourite } from "./store/favouriteSlice";
+import { decrypt } from "./AuthorizedRequest/EncriptionDecription";
+import Loadingbar from "./components/Loadingbar";
+import Home from "./components/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer";
 import UserDashBoard from "./components/UserDashBoard";
 import AdminDashBoard from "./components/AdminDashBoard";
-import { decrypt } from "./AuthorizedRequest/EncriptionDecription";
-import ProfilePage from "./components/ProfilePage";
 import FeedbackForm from "./components/FeedbackForm";
 function App() {
-  let [token, setToken] = useState(null);
-  let { isSuccess, userObj } = useSelector((state) => state.user);
+  // Lazy Loadings
   let ResultPage = React.lazy(() => import("./components/ResultPage"));
   let SearchResult = React.lazy(() => import("./components/SearchResult"));
   let MoviePreview = React.lazy(() => import("./components/MoviePreview"));
@@ -29,25 +25,18 @@ function App() {
   let VideoPlayer = React.lazy(() => import("./components/VideoPlayer"));
   let UserDetails = React.lazy(() => import("./components/UserDetails"));
   let ViewFeedback = React.lazy(() => import("./components/ViewFeedback"));
+  let ProfilePage = React.lazy(() => import("./components/ProfilePage"));
+  let dispatch = useDispatch();
+  let [token, setToken] = useState(null);
+  let { isSuccess, userObj } = useSelector((state) => state.user);
   let [rmodal, setRModal] = useState(false);
   let [lmodal, setLModal] = useState(false);
+  // Reading token for local storage
   useEffect(() => {
     setToken(window.localStorage.getItem("token"));
     // eslint-disable-next-line
   }, [isSuccess, token]);
-  const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        refetchOnmount: false,
-        refetchOnReconnect: false,
-        retry: false,
-        staleTime: twentyFourHoursInMs,
-      },
-    },
-  });
-  let dispatch = useDispatch();
+  // For Refreshing of The page(* if you refresh the page then all state are refilled)
   useEffect(() => {
     if (JSON.stringify(userObj) === JSON.stringify({})) {
       let token = window.localStorage.getItem("token");
@@ -63,81 +52,98 @@ function App() {
     // eslint-disable-next-line
   }, []);
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <div className="App">
-          <Loadingbar />
-          <Navbar
-            rmodal={rmodal}
-            lmodal={lmodal}
-            setLModal={setLModal}
-            setRModal={setRModal}
-            token={token}
-            setToken={setToken}
-          />
-        </div>
-        <Suspense
-          fallback={
-            <div className="d-flex justify-content-center">
-              <div className="spinner-border text-light" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
+    <BrowserRouter>
+      <div>
+        {/* Top Loading Bar */}
+        <Loadingbar />
+        {/* Navbar */}
+        <Navbar
+          rmodal={rmodal}
+          lmodal={lmodal}
+          setLModal={setLModal}
+          setRModal={setRModal}
+          token={token}
+          setToken={setToken}
+        />
+      </div>
+      {/* Lazy Loading (Spinner) */}
+      <Suspense
+        fallback={
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
-          }
-        >
-          <Switch>
-            <Route exact path="/">
-              <Home setLModal={setLModal} />
-            </Route>
-            <Route path="/userdashboard/:name">
-              <UserDashBoard />
-            </Route>
-            <Route exact path="/admindashboard/:name">
-              <AdminDashBoard />
-              <UserDashBoard />
-            </Route>
-            <Route exact path={`/result/:type/:data`}>
-              <ResultPage />
-            </Route>
-            <Route path={`/result/:id`}>
-              <MoviePreview />
-            </Route>
-            <Route exact path={`/admindashboard/:name/addcontent`}>
-              <AddContent />
-            </Route>
-            <Route path="/mywatchlist">
-              <MyWatchList />
-            </Route>
-            <Route path="/myfavourite">
-              <MyFavourite />
-            </Route>
-            <Route path="/searchresult">
-              <SearchResult />
-            </Route>
-            <Route path="/editcontent/:mid">
-              <EditContent />
-            </Route>
-            <Route path="/myprofile/:name">
-              <ProfilePage />
-            </Route>
-            <Route path="/playvideo">
-              <VideoPlayer />
-            </Route>
-            <Route path={`/admindashboard/:name/alluser`}>
-              <UserDetails />
-            </Route>
-            <Route path="/feedback">
-              <FeedbackForm />
-            </Route>
-            <Route path={`/admindashboard/:name/showfeedback`}>
-              <ViewFeedback />
-            </Route>
-          </Switch>
-        </Suspense>
-        <Footer />
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+          </div>
+        }
+      >
+        {/* Switch between Components */}
+        <Switch>
+          {/* Home Page */}
+          <Route exact path="/">
+            <Home setLModal={setLModal} />
+          </Route>
+          {/* User Dashboard */}
+          <Route path="/userdashboard/:name">
+            <UserDashBoard />
+          </Route>
+          {/* Admin Dashboard + User Dashboard */}
+          <Route exact path="/admindashboard/:name">
+            <AdminDashBoard />
+            <UserDashBoard />
+          </Route>
+          {/* Movie Result page based on type and data */}
+          <Route exact path={`/result/:type/:data`}>
+            <ResultPage />
+          </Route>
+          {/* Movie Priview */}
+          <Route path={`/result/:id`}>
+            <MoviePreview />
+          </Route>
+          {/* Add Content Page */}
+          <Route exact path={`/admindashboard/:name/addcontent`}>
+            <AddContent />
+          </Route>
+          {/* Watchlist */}
+          <Route path="/mywatchlist">
+            <MyWatchList />
+          </Route>
+          {/* Favourite */}
+          <Route path="/myfavourite">
+            <MyFavourite />
+          </Route>
+          {/* Search Result */}
+          <Route path="/searchresult">
+            <SearchResult />
+          </Route>
+          {/* Edit Content */}
+          <Route path="/editcontent/:mid">
+            <EditContent />
+          </Route>
+          {/* User Profile */}
+          <Route path="/myprofile/:name">
+            <ProfilePage />
+          </Route>
+          {/* Video Player */}
+          <Route path="/playvideo">
+            <VideoPlayer />
+          </Route>
+          {/* All User */}
+          <Route path={`/admindashboard/:name/alluser`}>
+            <UserDetails />
+          </Route>
+          {/* Feedback form Page */}
+          <Route path="/feedback">
+            <FeedbackForm />
+          </Route>
+          {/* Show Feedback */}
+          <Route path={`/admindashboard/:name/showfeedback`}>
+            <ViewFeedback />
+          </Route>
+        </Switch>
+      </Suspense>
+      {/* Footer */}
+      <Footer />
+    </BrowserRouter>
   );
 }
 export default App;

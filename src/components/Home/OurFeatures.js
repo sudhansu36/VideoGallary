@@ -106,3 +106,4 @@ const OurFeatures = ({ setLModal }) => {
   );
 };
 export default OurFeatures;
+// This is only used in Home.js

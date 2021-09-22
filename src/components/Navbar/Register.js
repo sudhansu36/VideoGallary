@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Modal } from "react-bootstrap";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
 const Register = (props) => {
   const { setProgress } = useContext(LoadingContext);
   let [userRegistrationStatus, setUserRegistrationStatus] = useState("");
@@ -12,6 +12,7 @@ const Register = (props) => {
     formState: { errors },
   } = useForm();
   let [file, setFile] = useState(null);
+  // On Register Form Submit
   const onRegisterFormSubmit = async (userObj) => {
     setProgress(10);
     let formData = new FormData();
@@ -29,6 +30,7 @@ const Register = (props) => {
     }
     setProgress(100);
   };
+  // On Profile pic Select
   const onDpSelect = (e) => {
     setFile(e.target.files[0]);
   };
@@ -49,6 +51,7 @@ const Register = (props) => {
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onRegisterFormSubmit)}>
+          {/* Name */}
           <div className="form-floating mb-3">
             <input
               type="text"
@@ -63,6 +66,7 @@ const Register = (props) => {
               <label htmlFor="name">Name</label>
             )}
           </div>
+          {/* Email */}
           <div className="form-floating mb-3">
             <input
               type="email"
@@ -77,6 +81,7 @@ const Register = (props) => {
               <label htmlFor="email">Email</label>
             )}
           </div>
+          {/* Profile Pic */}
           <div className="mb-3">
             <label htmlFor="pic">Profile Picture</label>
             <input
@@ -87,12 +92,9 @@ const Register = (props) => {
               placeholder="Profile Picture"
               required
               accept="image/*"
-              // {...register("image", { required: true })}
             />
           </div>
-          {/* {errors.image?.type === "required" && (
-            <p className="text-danger">* Profile Picture is Required</p>
-          )} */}
+          {/* Password */}
           <div className="form-floating mb-3">
             <input
               type="password"
@@ -108,6 +110,7 @@ const Register = (props) => {
               <label htmlFor="password">Password</label>
             )}
           </div>
+          {/* Sign Up button */}
           <button className="btn btn-warning mx-auto d-block text-light">
             SIGN UP{" "}
             <img
@@ -119,6 +122,7 @@ const Register = (props) => {
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center">
         <p className="text-dark">Already a Member...</p>
+        {/* Sign In button */}
         <button
           type="button"
           className="btn btn-success btn-sm"
