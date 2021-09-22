@@ -11,9 +11,7 @@ const SquareCard = () => {
               className="figure-img img-fluid rounded mx-auto"
               alt="..."
             />
-            <figcaption className="figure-caption">
-              A caption for the above image.
-            </figcaption>
+            <figcaption className="figure-caption">Our Journey</figcaption>
           </figure>
         </div>
         <div className="col  mx-auto">
@@ -23,9 +21,7 @@ const SquareCard = () => {
               className="figure-img img-fluid rounded mx-auto"
               alt="..."
             />
-            <figcaption className="figure-caption">
-              A caption for the above image.
-            </figcaption>
+            <figcaption className="figure-caption">Our Goal</figcaption>
           </figure>
         </div>{" "}
         <div className="col  mx-auto">
@@ -35,9 +31,7 @@ const SquareCard = () => {
               className="figure-img img-fluid rounded mx-auto"
               alt="..."
             />
-            <figcaption className="figure-caption">
-              A caption for the above image.
-            </figcaption>
+            <figcaption className="figure-caption">Our Features</figcaption>
           </figure>
         </div>{" "}
         <div className="col  mx-auto">
@@ -47,9 +41,7 @@ const SquareCard = () => {
               className="figure-img img-fluid rounded  mx-auto"
               alt="..."
             />
-            <figcaption className="figure-caption">
-              A caption for the above image.
-            </figcaption>
+            <figcaption className="figure-caption">Our Team</figcaption>
           </figure>
         </div>
       </div>

@@ -12,7 +12,7 @@ const Navbar = ({ rmodal, lmodal, setRModal, setLModal, token, setToken }) => {
     <div>
       <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand heartbeat" href="/">
             <i className="fab fa-waze fs-2 fw-bold text-warning">
               <span className="text-danger ms-1">Pri</span>
               <span className="text-primary me-1">lix</span>

@@ -6,7 +6,7 @@ const OurFeatures = ({ setLModal }) => {
       <div className="container-fluid text-light">
         <div className="row row-cols-1">
           <div className="col p-0 my-2">
-            <div className="card  bg-transparent">
+            <div className="card  bg-transparent border-0">
               <div className="card-body row p-0 m-0">
                 <div className="col-lg-4 col-sm-12 p-0">
                   <img
@@ -17,11 +17,11 @@ const OurFeatures = ({ setLModal }) => {
                 </div>
                 <div className="col my-auto mx-3">
                   <div className="my-1">
-                    <h1>context...</h1>
+                    <h1>Great Entertainment</h1>
                     <p className="lead">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Cum minima et ratione amet magni fuga natus pariatur illum
-                      assumenda recusandae.
+                      With your Prilix membership, you have access to exclusive
+                      Originals, blockbuster Bollywood movies, regional movies
+                      and more.
                     </p>
                     <GetStarted setLModal={setLModal} />
                   </div>
@@ -30,15 +30,14 @@ const OurFeatures = ({ setLModal }) => {
             </div>
           </div>
           <div className="col p-0 my-1">
-            <div className="card  bg-transparent">
+            <div className="card border-0 bg-transparent">
               <div className="card-body row p-0 m-0">
                 <div className="col order-lg-1 order-2 text-lg-end my-auto mx-3">
                   <div className="my-1">
-                    <h1>context...</h1>
+                    <h1>Download and go</h1>
                     <p className="lead">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Cum minima et ratione amet magni fga natus pariatur illum
-                      assumenda recusandae.
+                      Watch offline on the Prilx Video app when you download
+                      titles to your iPhone, iPad, Tablet, or Android device.
                     </p>
                     <GetStarted setLModal={setLModal} />
                   </div>
@@ -55,7 +54,7 @@ const OurFeatures = ({ setLModal }) => {
           </div>
 
           <div className="col p-0 my-2">
-            <div className="card  bg-transparent">
+            <div className="card border-0 bg-transparent">
               <div className="card-body row p-0 m-0">
                 <div className="col-lg-4 col-sm-12 p-0">
                   <img
@@ -66,11 +65,11 @@ const OurFeatures = ({ setLModal }) => {
                 </div>
                 <div className="col my-auto mx-3">
                   <div className="my-1">
-                    <h1>context...</h1>
+                    <h1>Watch anywhere</h1>
                     <p className="lead">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Cum minima et ratione amet magni fuga natus pariatur illum
-                      assumenda recusandae.
+                      Enjoy from the web or with the Prilix Video app on your
+                      phone, tablet, or select Smart TVs — on up to any devices
+                      at once.
                     </p>
                     <GetStarted setLModal={setLModal} />
                   </div>
@@ -79,15 +78,14 @@ const OurFeatures = ({ setLModal }) => {
             </div>
           </div>
           <div className="col p-0 my-1">
-            <div className="card  bg-transparent">
+            <div className="card border-0 bg-transparent">
               <div className="card-body row p-0 m-0">
                 <div className="col order-lg-1 order-2 text-lg-end my-auto mx-3">
                   <div className="my-1">
-                    <h1>context...</h1>
+                    <h1>Data saver</h1>
                     <p className="lead">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Cum minima et ratione amet magni fga natus pariatur illum
-                      assumenda recusandae.
+                      Control data usage while downloading and watching videos
+                      on select phones or tablets.
                     </p>
                     <GetStarted setLModal={setLModal} />
                   </div>

@@ -60,11 +60,7 @@ const Home = ({ setLModal }) => {
               </div>
               <div className="text-center my-3 text-light mx-auto">
                 <h3 className="text-warning">Welcome to Prilix</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Cupiditate ullam, id nobis similique sequi accusamus enim
-                  veniam praesentium. Vel, maxime.
-                </p>
+                <p>Join Prilix to watch the latest movies, TV shows</p>
                 <GetStarted setLModal={setLModal} />
               </div>
             </Fade>

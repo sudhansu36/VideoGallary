@@ -8,14 +8,12 @@ const adminApiObj = require("./APIS/adminApi");
 const contentApiObj = require("./APIS/contentApi");
 const watchlistApiObj = require("./APIS/watchlistApi");
 const favouriteApiObj = require("./APIS/favouriteApi");
-const trashApiObj = require("./APIS/trashApi");
 const feedbackApiObj = require("./APIS/feedbackApi");
 app.use("/users", userApiObj);
 app.use("/admin", adminApiObj);
 app.use("/content", contentApiObj);
 app.use("/watchlist", watchlistApiObj);
 app.use("/favourite", favouriteApiObj);
-app.use("/trash", trashApiObj);
 app.use("/comment", feedbackApiObj);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./build", "index.html"));
@@ -37,8 +35,6 @@ mongoClient.connect(dbUrl, (err, client) => {
     app.set("watchlistCollection", watchlistCollection);
     let favouriteCollection = databaseObject.collection("favouritecollection");
     app.set("favouriteCollection", favouriteCollection);
-    let trashCollection = databaseObject.collection("trashcollection");
-    app.set("trashCollection", trashCollection);
     let feedbackCollection = databaseObject.collection("feedbackcollection");
     app.set("feedbackCollection", feedbackCollection);
     console.log("Connected to DB");

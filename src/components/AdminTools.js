@@ -21,18 +21,6 @@ const AdminTools = (props) => {
           </NavLink>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
-          <img
-            src="https://img.icons8.com/ios-glyphs/30/4a90e2/trash--v1.png"
-            alt=""
-            width="30px"
-            className="d-flex mx-auto"
-          />
-
-          <div className="card-body text-center p-0">
-            <p className="card-title text-light">Deleted Content</p>
-          </div>
-        </div>
-        <div className="card bg-transparent border-3 border-dark p-2 ms-3">
           <NavLink
             className="nav-link p-0 d-block rounded"
             to={`${props.url}/alluser`}
