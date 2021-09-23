@@ -1,25 +1,14 @@
 import React, { useEffect, useContext } from "react";
-// import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
-import TypeCard from "./TypeCard";
-// import { useQuery } from "react-query";
-import Banner from "./Banner";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
-import { getContent, clearContentState } from "../store/contentSlice";
-import { getWatchList } from "../store/watchlistSlice";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
+import { getContent, clearContentState } from "../../store/contentSlice";
+import { getWatchList } from "../../store/watchlistSlice";
+import { getFavourite } from "../../store/favouriteSlice";
+import TypeCard from "./TypeCard";
+import Banner from "./Banner";
 import MovieSlider from "./MovieSlider";
 import MovieSliderWF from "./MovieSliderWF";
-import { getFavourite } from "../store/favouriteSlice";
-// const fetchData = async () => {
-//   try {
-//     let axiosReqWithToken = getAxiosWithTokenObj();
-//     let response = await axiosReqWithToken.get("/content/getcontent");
-//     let contentObj = response.data;
-//     return contentObj.payload;
-//   } catch (e) {
-//     alert("Error", e);
-//   }
-// };
+import LatestMovie from "./LatestMovie";
 const UserDashBoard = () => {
   const { setProgress } = useContext(LoadingContext);
   let categories = ["movie", "series"];
@@ -64,20 +53,10 @@ const UserDashBoard = () => {
     }
     // eslint-disable-next-line
   }, []);
-  // let { status, error, data } = useQuery("contentCollection", fetchData);
-  // console.log("data", data);
-  // if (status === "loading") {
-  //   setProgress(50);
-  // }
-  // if (status === "success") {
-  //   setProgress(100);
-  // }
-  // if (status === "error") {
-  //   alert(error.message);
-  // }
   return (
     <div className="fluid-container">
       <Banner />
+      <LatestMovie />
       <MovieSliderWF type="Watchlist" />
       <MovieSliderWF type="Favourite" />
       <TypeCard title="Genres" collection={genres} />

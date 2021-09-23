@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
+import getAxiosWithTokenObj from "../../AuthorizedRequest/AxiosReqWithToken";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
 const ViewFeedback = () => {
   const { setProgress } = useContext(LoadingContext);
   let [feedback, setFeedback] = useState([]);

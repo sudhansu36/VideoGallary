@@ -8,6 +8,7 @@ favouriteApiObj.use((req, res, next) => {
   favouriteCollection = req.app.get("favouriteCollection");
   next();
 });
+// Get favourite
 favouriteApiObj.get(
   "/getfavourite/:email",
   checkToken,
@@ -21,6 +22,7 @@ favouriteApiObj.get(
     }
   })
 );
+// Add to favourite
 favouriteApiObj.post(
   "/addtofavorite",
   checkToken,
@@ -42,6 +44,7 @@ favouriteApiObj.post(
     }
   })
 );
+// delete from favourite
 favouriteApiObj.put(
   "/deletefavorite",
   checkToken,

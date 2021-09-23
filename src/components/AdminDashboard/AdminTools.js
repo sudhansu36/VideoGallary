@@ -5,6 +5,7 @@ const AdminTools = (props) => {
     <div className="fluid-container py-2 mx-2">
       <div className="d-flex flex-row flex-nowrap overflow-auto scoll-pane row row-cols-4 row-cols-lg-5 m-0 p-0 ">
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
+          {/* Add Content */}
           <NavLink
             className="nav-link p-0 d-block rounded"
             to={`${props.url}/addcontent`}
@@ -21,6 +22,7 @@ const AdminTools = (props) => {
           </NavLink>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 ms-3">
+          {/* All user detail */}
           <NavLink
             className="nav-link p-0 d-block rounded"
             to={`${props.url}/alluser`}
@@ -37,6 +39,7 @@ const AdminTools = (props) => {
           </NavLink>
         </div>
         <div className="card bg-transparent border-3 border-dark p-2 mx-3">
+          {/* Public Feedback */}
           <NavLink
             className="nav-link p-0 d-block rounded"
             to={`${props.url}/showfeedback`}

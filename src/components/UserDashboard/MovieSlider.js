@@ -24,6 +24,7 @@ const MovieSlider = ({ type, data }) => {
             let arr = languages.filter((language) => language === data);
             return arr[0] === data;
           }
+          return 0
         })
       );
     }

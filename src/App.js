@@ -6,29 +6,55 @@ import { getContent } from "./store/contentSlice";
 import { getWatchList } from "./store/watchlistSlice";
 import { getFavourite } from "./store/favouriteSlice";
 import { decrypt } from "./AuthorizedRequest/EncriptionDecription";
-import Loadingbar from "./components/Loadingbar";
+import Loadingbar from "./components/Loading/Loadingbar";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer";
-import UserDashBoard from "./components/UserDashBoard";
-import AdminDashBoard from "./components/AdminDashBoard";
-import FeedbackForm from "./components/FeedbackForm";
+import Footer from "./components/Footer/Footer";
+import FeedbackForm from "./components/Footer/FeedbackForm";
+import UserDashBoard from "./components/UserDashboard/UserDashBoard";
+import AdminDashBoard from "./components/AdminDashboard/AdminDashBoard";
+import Spinner from "./components/Loading/Spinner";
 function App() {
   // Lazy Loadings
-  let ResultPage = React.lazy(() => import("./components/ResultPage"));
-  let SearchResult = React.lazy(() => import("./components/SearchResult"));
-  let MoviePreview = React.lazy(() => import("./components/MoviePreview"));
-  let AddContent = React.lazy(() => import("./components/AddContent"));
-  let MyWatchList = React.lazy(() => import("./components/MyWatchList"));
-  let MyFavourite = React.lazy(() => import("./components/MyFavourite"));
-  let EditContent = React.lazy(() => import("./components/EditContent"));
-  let VideoPlayer = React.lazy(() => import("./components/VideoPlayer"));
-  let UserDetails = React.lazy(() => import("./components/UserDetails"));
-  let ViewFeedback = React.lazy(() => import("./components/ViewFeedback"));
-  let ProfilePage = React.lazy(() => import("./components/ProfilePage"));
+  let ResultPage = React.lazy(() =>
+    import("./components/UserDashboard/ResultPage")
+  );
+  let SearchResult = React.lazy(() =>
+    import("./components/UserDashboard/SearchResult")
+  );
+  let MoviePreview = React.lazy(() =>
+    import("./components/UserDashboard/MoviePreview")
+  );
+  let MyWatchList = React.lazy(() =>
+    import("./components/UserDashboard/MyWatchList")
+  );
+  let MyFavourite = React.lazy(() =>
+    import("./components/UserDashboard/MyFavourite")
+  );
+  let VideoPlayer = React.lazy(() =>
+    import("./components/UserDashboard/VideoPlayer")
+  );
+  let AddContent = React.lazy(() =>
+    import("./components/AdminDashboard/AddContent")
+  );
+  let EditContent = React.lazy(() =>
+    import("./components/AdminDashboard/EditContent")
+  );
+  let UserDetails = React.lazy(() =>
+    import("./components/AdminDashboard/UserDetails")
+  );
+  let ViewFeedback = React.lazy(() =>
+    import("./components/AdminDashboard/ViewFeedback")
+  );
+  let ProfilePage = React.lazy(() =>
+    import("./components/Profile/ProfilePage")
+  );
   let dispatch = useDispatch();
   let [token, setToken] = useState(null);
-  let { isSuccess, userObj } = useSelector((state) => state.user);
+  let { isSuccess, userObj, isLoading } = useSelector((state) => state.user);
+  let content = useSelector((state) => state.contentCollection);
+  let watchlist = useSelector((state) => state.watchlist);
+  let favourite = useSelector((state) => state.favourite);
   let [rmodal, setRModal] = useState(false);
   let [lmodal, setLModal] = useState(false);
   // Reading token for local storage
@@ -65,6 +91,10 @@ function App() {
           token={token}
           setToken={setToken}
         />
+        {(isLoading ||
+          content.isLoading ||
+          watchlist.isLoading ||
+          favourite.isLoading) && <Spinner />}
       </div>
       {/* Lazy Loading (Spinner) */}
       <Suspense

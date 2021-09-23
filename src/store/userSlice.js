@@ -2,14 +2,54 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { decrypt, encrypt } from "../AuthorizedRequest/EncriptionDecription";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
+// Login Thunk
+export const userLogin = createAsyncThunk(
+  "loginUser",
+  async (userCredentialObj, thunkAPI) => {
+    let data;
+    // encrypt userCredential
+    let encryptedUser = encrypt(userCredentialObj);
+    // for User
+    if (userCredentialObj.type === false) {
+      let response = await axios.post("/users/login", {
+        userCredential: encryptedUser,
+      });
+      data = response.data;
+    }
+    // for Admin
+    if (userCredentialObj.type === true) {
+      let response = await axios.post("/admin/login", {
+        adminCredential: encryptedUser,
+      });
+      data = response.data;
+    }
+    // After Successful response
+    if (data.message === "success") {
+      localStorage.setItem("token", data.token);
+      let encrypedUserObj = encrypt(data.user);
+      localStorage.setItem("userObj", encrypedUserObj);
+      return data;
+    }
+    if (
+      data.message === "Invalid Password" ||
+      data.message === "Invalid Username"
+    ) {
+      // it will provide data to rejected state
+      return thunkAPI.rejectWithValue(data);
+    }
+  }
+);
+// Edit Pic Thunk
 export const editProfilePicture = createAsyncThunk(
   "Edit Pic",
   async ({ formData, isAdmin }, thunkAPI) => {
     let axiosReqWithToken = getAxiosWithTokenObj();
     let response;
+    // for User
     if (isAdmin === false) {
       response = await axiosReqWithToken.put("/users/editprofilepic", formData);
     }
+    // for Admin
     if (isAdmin === true) {
       response = await axiosReqWithToken.put("/admin/editprofilepic", formData);
     }
@@ -23,17 +63,20 @@ export const editProfilePicture = createAsyncThunk(
     }
   }
 );
+// edit profile thunk
 export const editUserProfile = createAsyncThunk(
   "editUserProfile",
   async (user, thunkAPI) => {
     let axiosReqWithToken = getAxiosWithTokenObj();
     let response;
     let encryptedUser = encrypt(user);
+    // for Admin
     if (user.isAdmin === true) {
       response = await axiosReqWithToken.put("/admin/edituserprofile", {
         encryptedUser: encryptedUser,
       });
     }
+    // for User
     if (user.isAdmin === false) {
       response = await axiosReqWithToken.put("/users/edituserprofile", {
         encryptedUser: encryptedUser,
@@ -50,40 +93,6 @@ export const editUserProfile = createAsyncThunk(
     }
   }
 );
-export const userLogin = createAsyncThunk(
-  "loginUser",
-  async (userCredentialObj, thunkAPI) => {
-    // make post
-    let data;
-    let encryptedUser = encrypt(userCredentialObj);
-    if (userCredentialObj.type === false) {
-      let response = await axios.post("/users/login", {
-        userCredential: encryptedUser,
-      });
-      data = response.data;
-    }
-    if (userCredentialObj.type === true) {
-      let response = await axios.post("/admin/login", {
-        adminCredential: encryptedUser,
-      });
-      data = response.data;
-    }
-    if (data.message === "success") {
-      localStorage.setItem("token", data.token);
-      let encrypedUserObj = encrypt(data.user);
-      localStorage.setItem("userObj", encrypedUserObj);
-      return data;
-    }
-    if (
-      data.message === "Invalid Password" ||
-      data.message === "Invalid Username"
-    ) {
-      // it will provide data to rejected state
-      return thunkAPI.rejectWithValue(data);
-    }
-  }
-);
-
 const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -106,11 +115,13 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [userLogin.fulfilled]: (state, action) => {
-      state.userObj = action.payload.user;
-      state.isSuccess = true;
-      state.isLoading = false;
-      state.invalidLoginMessage = "";
-      state.isError = false;
+      state = Object.assign(state, {
+        userObj: action.payload.user,
+        isSuccess: true,
+        isLoading: false,
+        invalidLoginMessage: "",
+        isError: false,
+      });
     },
     [userLogin.pending]: (state, action) => {
       state.isLoading = true;

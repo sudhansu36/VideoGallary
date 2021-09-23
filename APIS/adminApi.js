@@ -53,6 +53,7 @@ adminApiObj.post(
     }
   })
 );
+// Edit Profile Pic
 adminApiObj.put(
   "/editprofilepic",
   checkToken,
@@ -71,7 +72,7 @@ adminApiObj.put(
     res.send({ message: "updated", payload: newEncryptedUser });
   })
 );
-
+// Edit Admin Profile
 adminApiObj.put(
   "/edituserprofile",
   checkToken,

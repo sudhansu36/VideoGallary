@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { addContent } from "../store/contentSlice";
+import { addContent } from "../../store/contentSlice";
 import { useDispatch } from "react-redux";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
 import ContentForm from "./ContentForm";
 const AddContent = () => {
   let dispatch = useDispatch();
@@ -18,6 +18,7 @@ const AddContent = () => {
   const onContentSelect = (e) => {
     setFile(e.target.files[0]);
   };
+  // Add Content Function
   const onAddContentSubmit = async (contentObj) => {
     setProgress(30);
     let formData = new FormData();
@@ -33,6 +34,7 @@ const AddContent = () => {
   return (
     <div className="mt-5 container">
       <div className="row">
+        {/* Content Form */}
         <ContentForm
           register={register}
           type="Add"
@@ -45,5 +47,4 @@ const AddContent = () => {
     </div>
   );
 };
-
 export default AddContent;

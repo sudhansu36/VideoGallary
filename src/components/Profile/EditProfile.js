@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { editUserProfile } from "../store/userSlice";
+import { editUserProfile } from "../../store/userSlice";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
 const EditProfile = (props) => {
+  const { setProgress } = useContext(LoadingContext);
   let dispatch = useDispatch();
   let { userObj, isError, invalidLoginMessage } = useSelector(
     (state) => state.user
@@ -14,17 +16,22 @@ const EditProfile = (props) => {
     formState: { errors },
   } = useForm();
   let [userRegistrationStatus, setUserRegistrationStatus] = useState("");
+  // Edit profile Function
+  const changePassword = (newUser) => {
+    setProgress(25);
+    newUser.image = userObj.image;
+    newUser.isAdmin = userObj.isAdmin;
+    setProgress(45);
+    newUser._id = userObj._id;
+    newUser.email = userObj.email;
+    setProgress(75);
+    dispatch(editUserProfile(newUser));
+    setProgress(100);
+  };
   useEffect(() => {
     setUserRegistrationStatus(invalidLoginMessage);
     // eslint-disable-next-line
   }, [isError]);
-  const changePassword = (newUser) => {
-    newUser.image = userObj.image;
-    newUser.isAdmin = userObj.isAdmin;
-    newUser._id = userObj._id;
-    newUser.email = userObj.email;
-    dispatch(editUserProfile(newUser));
-  };
   return (
     <Modal
       show={props.password}
@@ -46,6 +53,7 @@ const EditProfile = (props) => {
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(changePassword)}>
+          {/* Name */}
           <div className="form-floating mb-3">
             <input
               type="text"
@@ -61,6 +69,7 @@ const EditProfile = (props) => {
               <label htmlFor="name">Name</label>
             )}
           </div>
+          {/* Old Password */}
           <div className="form-floating mb-3">
             <input
               type="password"
@@ -78,6 +87,7 @@ const EditProfile = (props) => {
               <label htmlFor="password">Previous Password</label>
             )}
           </div>
+          {/* New Password */}
           <div className="form-floating mb-3">
             <input
               type="password"

@@ -13,8 +13,8 @@ const Navbar = ({ rmodal, lmodal, setRModal, setLModal, token, setToken }) => {
       <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           {/* LOGO */}
-          <a className="navbar-brand heartbeat" href="/">
-            <i className="fab fa-waze fs-2 fw-bold text-warning">
+          <a className="navbar-brand " href="/">
+            <i className="fab fa-waze fs-2 fw-bold text-warning heartbeat">
               <span className="text-danger ms-1">Pri</span>
               <span className="text-primary me-1">lix</span>
             </i>

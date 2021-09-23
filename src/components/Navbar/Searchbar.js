@@ -11,7 +11,9 @@ const Searchbar = () => {
     let filteredData = contentCollection.filter((value) => {
       return value.mname
         .toLowerCase()
-        .includes(search.searchItem.toLowerCase());
+        .split(" ")
+        .join("")
+        .includes(search.searchItem.toLowerCase().split(" ").join(""));
     });
     history.push({ pathname: "/searchresult", state: filteredData });
   }

@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
-
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
 const FeedbackForm = () => {
   const { setProgress } = useContext(LoadingContext);
   let {
@@ -10,6 +9,7 @@ const FeedbackForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  // On feedback Submit Function
   const onFeedbackSubmit = async (feedback) => {
     setProgress(35);
     let response = await axios.post("/comment/sendfeedback", feedback);
@@ -28,6 +28,7 @@ const FeedbackForm = () => {
         className="col-10 col-sm-8 col-md-6 mx-auto"
         onSubmit={handleSubmit(onFeedbackSubmit)}
       >
+        {/* Name */}
         <div className="form-floating mb-3">
           <input
             type="text"
@@ -39,8 +40,9 @@ const FeedbackForm = () => {
           <label htmlFor="fname">Name</label>
         </div>
         {errors.name?.type === "required" && (
-          <p className="alert alert-danger p-1">* Email is Required</p>
+          <p className="alert alert-danger p-1">* Name is Required</p>
         )}
+        {/* Email */}
         <div className="form-floating mb-3">
           <input
             type="email"
@@ -54,6 +56,7 @@ const FeedbackForm = () => {
         {errors.email?.type === "required" && (
           <p className="alert alert-danger p-1">* Email is Required</p>
         )}
+        {/* Comment/Feedback */}
         <div className="form-floating">
           <textarea
             className="form-control"
@@ -69,6 +72,7 @@ const FeedbackForm = () => {
             * Comments/FeedBack/Complaint is Required
           </p>
         )}
+        {/* Submit Button */}
         <button type="submit" className="btn btn-primary mt-3">
           Submit
         </button>
@@ -76,5 +80,4 @@ const FeedbackForm = () => {
     </div>
   );
 };
-
 export default FeedbackForm;

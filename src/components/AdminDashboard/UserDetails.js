@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
-import LoadingContext from "../context/toploadingbar/LoadingContext";
+import getAxiosWithTokenObj from "../../AuthorizedRequest/AxiosReqWithToken";
+import LoadingContext from "../../context/toploadingbar/LoadingContext";
 const UserDetails = () => {
   const { setProgress } = useContext(LoadingContext);
   let [users, setUsers] = useState([]);

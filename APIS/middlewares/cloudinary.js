@@ -9,6 +9,7 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
 });
+// User Dp folder
 const clStorage1 = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
@@ -18,6 +19,7 @@ const clStorage1 = new CloudinaryStorage({
     };
   },
 });
+// Movie collection folder
 const clStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {

@@ -8,7 +8,7 @@ watchlistApiObj.use((req, res, next) => {
   watchlistCollection = req.app.get("watchlistCollection");
   next();
 });
-
+// get all watchlist for user
 watchlistApiObj.get(
   "/getlist/:email",
   checkToken,
@@ -22,6 +22,7 @@ watchlistApiObj.get(
     }
   })
 );
+// add to watchlist
 watchlistApiObj.post(
   "/addtowatchlist",
   checkToken,
@@ -43,6 +44,7 @@ watchlistApiObj.post(
     }
   })
 );
+// delete from watchlist
 watchlistApiObj.put(
   "/deletewatchlist",
   checkToken,
@@ -57,5 +59,4 @@ watchlistApiObj.put(
     res.send({ message: "success", index: index });
   })
 );
-
 module.exports = watchlistApiObj;

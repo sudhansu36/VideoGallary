@@ -10,6 +10,16 @@ contentApiObj.use((req, res, next) => {
   contentCollection = req.app.get("contentCollection");
   next();
 });
+// get all Content
+contentApiObj.get(
+  "/getcontent",
+  checkToken,
+  expressAsyncHandler(async (req, res) => {
+    let allContent = await contentCollection.find().toArray();
+    res.send({ message: "Collection data", payload: allContent, status: true });
+  })
+);
+// Add content
 contentApiObj.post(
   "/addcontent",
   checkToken,
@@ -31,14 +41,7 @@ contentApiObj.post(
     }
   })
 );
-contentApiObj.get(
-  "/getcontent",
-  checkToken,
-  expressAsyncHandler(async (req, res) => {
-    let allContent = await contentCollection.find().toArray();
-    res.send({ message: "Collection data", payload: allContent, status: true });
-  })
-);
+// Delete Content
 contentApiObj.delete(
   "/deletecontent/:mname",
   checkToken,
@@ -50,6 +53,7 @@ contentApiObj.delete(
     res.send({ message: "deleted", index: index });
   })
 );
+// Edit Content
 contentApiObj.put(
   "/editcontent",
   checkToken,
@@ -60,42 +64,10 @@ contentApiObj.put(
     let updatedContent = { ...contentObj };
     delete contentObj._id;
     await contentCollection.updateOne(
-      { _id: new ObjectId(updatedContent._id) },
+      { _id: new ObjectId(updatedContent._id)},
       { $set: contentObj }
     );
     res.send({ message: "updated", payload: updatedContent });
   })
 );
-contentApiObj.get(
-  "/Genres/:genre",
-  checkToken,
-  expressAsyncHandler(async (req, res) => {
-    let genre = req.params.genre;
-    let allContent = await contentCollection.find({ genres: genre }).toArray();
-    res.send({ message: "success", payload: allContent });
-  })
-);
-contentApiObj.get(
-  "/Languages/:language",
-  checkToken,
-  expressAsyncHandler(async (req, res) => {
-    let language = req.params.language;
-    let allContent = await contentCollection
-      .find({ languages: language })
-      .toArray();
-    res.send({ message: "success", payload: allContent });
-  })
-);
-contentApiObj.get(
-  "/Category/:category",
-  checkToken,
-  expressAsyncHandler(async (req, res) => {
-    let category = req.params.category;
-    let allContent = await contentCollection
-      .find({ category: category })
-      .toArray();
-    res.send({ message: "success", payload: allContent });
-  })
-);
-
 module.exports = contentApiObj;

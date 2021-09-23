@@ -3,18 +3,16 @@ import { useHistory } from "react-router-dom";
 const TypeCard = (props) => {
   let history = useHistory();
   let Color = [
-    "#513b66",
-    "#48527b",
-    "#3e4c44",
-    "#593548",
-    "#404067",
-    "#3f3a52",
-    "#333c33",
+    "#fe0000",
+    "#011efe",
+    "#fe00f6",
+    "#9e379f",
+    "#493267",
     "#083d3f",
     "#110e0e",
-    "#590101",
-    "	#504356",
-    "#504854",
+    "#373854",
+    "#504356",
+    "#fa3c4c",
     "#111111",
   ];
   async function showResult(obj) {

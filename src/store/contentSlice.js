@@ -27,6 +27,7 @@ export const addContent = createAsyncThunk(
     );
     let data = response.data;
     if (data.message === "New Content Created") {
+      alert(data.message);
       return data;
     } else {
       alert(data.message);
@@ -61,6 +62,7 @@ export const editContent = createAsyncThunk(
     );
     let data = response.data;
     if (data.message === "updated") {
+      alert(data.message);
       return thunkAPI.fulfillWithValue({ payload: data.payload, index });
     } else {
       // it will provide data to rejected state

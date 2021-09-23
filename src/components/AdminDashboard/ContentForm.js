@@ -1,5 +1,4 @@
 import React from "react";
-
 const ContentForm = ({
   register,
   handleSubmit,
@@ -38,6 +37,7 @@ const ContentForm = ({
       className="col-11 col-sm-8 col-md-6 mx-auto"
       onSubmit={handleSubmit(onContentSubmit)}
     >
+      {/* Movie Name */}
       <div className="form-floating mb-3">
         <input
           type="text"
@@ -52,6 +52,7 @@ const ContentForm = ({
           <label htmlFor="mname">Movie Name</label>
         )}
       </div>
+      {/* Category */}
       <div className="form-check form-check-inline">
         <input
           className="form-check-input"
@@ -81,11 +82,13 @@ const ContentForm = ({
       {errors.category?.type === "required" && (
         <p className="text-danger">* Movie Category is Required</p>
       )}
+      {/* Movie Description */}
       <div className="form-floating my-3">
         <textarea
           className="form-control"
           placeholder="Movie Description"
           id="mdesc"
+          style={{ height: "100px" }}
           {...register("mdesc", { required: true })}
         ></textarea>
         {errors.mdesc?.type === "required" ? (
@@ -94,6 +97,7 @@ const ContentForm = ({
           <label htmlFor="mdesc">Movie Description</label>
         )}
       </div>
+      {/* Genres */}
       <p className="text-light m-0">Genres</p>
       {genres.map((genre, index) => {
         return (
@@ -118,6 +122,7 @@ const ContentForm = ({
       {errors.genres?.type === "required" && (
         <p className="text-danger">* Movie Genre is Required</p>
       )}
+      {/* Release Date */}
       <div className="form-floating mb-3">
         <input
           type="date"
@@ -132,6 +137,7 @@ const ContentForm = ({
           <label htmlFor="rdate">Release Date</label>
         )}
       </div>
+      {/* Languages */}
       <p className="text-light m-0">Languages</p>
       {languages.map((language, index) => {
         return (
@@ -156,6 +162,7 @@ const ContentForm = ({
       {errors.languages?.type === "required" && (
         <p className="text-danger">* Movie Language is Required</p>
       )}
+      {/* Movie Picture */}
       <div className="mb-3">
         <label htmlFor="mpic" className="text-light">
           Movie Picture

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { addToWatchList, deleteFromWatchList } from "../store/watchlistSlice";
-import { addToFavorite, deleteFromFavourite } from "../store/favouriteSlice";
-import { deleteContent } from "../store/contentSlice";
+import {
+  addToWatchList,
+  deleteFromWatchList,
+} from "../../store/watchlistSlice";
+import { addToFavorite, deleteFromFavourite } from "../../store/favouriteSlice";
+import { deleteContent } from "../../store/contentSlice";
 import Recommendations from "./Recommendations";
 const MoviePreview = () => {
   let { contentCollection, isSucess } = useSelector(
@@ -51,6 +54,7 @@ const MoviePreview = () => {
                   <button
                     className="px-2 me-2 btn btn-dark text-light"
                     key={index}
+                    onClick={() => history.push(`/result/Category/${genre}`)}
                   >
                     {genre}
                   </button>
@@ -60,14 +64,17 @@ const MoviePreview = () => {
             <div className="mt-5">
               {isAdmin ? (
                 <div className="d-flex justify-content-between mx-2">
+                  {/* Edit */}
                   <i
                     className="far fa-edit fs-2"
                     onClick={() => history.push(`/editcontent/${state._id}`)}
                   ></i>
+                  {/* Play */}
                   <i
                     className="far fa-play-circle fs-2"
                     onClick={() => history.push("/playvideo")}
                   ></i>
+                  {/* Delete */}
                   <i
                     className="fas fa-trash fs-2"
                     onClick={() =>
@@ -77,11 +84,13 @@ const MoviePreview = () => {
                 </div>
               ) : (
                 <div className="d-flex justify-content-between mx-2">
+                  {/* Play */}
                   <i
                     className="far fa-play-circle fs-2"
                     onClick={() => history.push("/playvideo")}
                   ></i>
                   <div>
+                    {/* Favourite */}
                     {isFavourite(state._id) === undefined ? (
                       <i
                         className="fas fa-heart px-2 fs-2"
@@ -104,6 +113,7 @@ const MoviePreview = () => {
                         }
                       ></i>
                     )}
+                    {/* Watchlist */}
                     {isPresent(state._id) === undefined ? (
                       <i
                         className="fas fa-plus px-2 fs-2"

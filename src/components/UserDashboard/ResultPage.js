@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { useQueryClient } from "react-query";
 import ContentCard from "./ContentCard";
 const ResultPage = () => {
   let { contentCollection, isSuccess } = useSelector(
@@ -9,9 +8,6 @@ const ResultPage = () => {
   );
   let { type, data } = useParams();
   let [result, setResult] = useState([]);
-  // let queryClient = useQueryClient();
-  // let contentCollections = queryClient.getQueryData("contentCollection");
-  // console.log("QueryData", contentCollections);
   useEffect(() => {
     if (contentCollection.length !== 0) {
       setResult(
@@ -29,6 +25,7 @@ const ResultPage = () => {
             let arr = languages.filter((language) => language === data);
             return arr[0] === data;
           }
+          return 0;
         })
       );
     }

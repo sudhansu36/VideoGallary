@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import Navbar from "../components/Navbar";
+import { render, screen,waitFor } from "@testing-library/react";
+import Navbar from "../components/Navbar/Navbar";
 import { store } from "../store/store";
 import { Provider } from "react-redux";
 import LoadingState from "../context/toploadingbar/LoadingState";

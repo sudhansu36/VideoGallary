@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const { userDpObj } = require("./middlewares/cloudinary");
 const { decrypt, encrypt } = require("./encryption/EncriptionDecription");
 const ObjectId = require("mongodb").ObjectId;
-
 const userApiObj = express.Router();
 userApiObj.use(express.json());
 let userCollection;
@@ -14,6 +13,7 @@ userApiObj.use((req, res, next) => {
   userCollection = req.app.get("userCollection");
   next();
 });
+// register user
 userApiObj.post(
   "/register",
   userDpObj.single("photo"),
@@ -32,7 +32,7 @@ userApiObj.post(
     }
   })
 );
-
+// user login
 userApiObj.post(
   "/login",
   expressAsyncHandler(async (req, res) => {
@@ -61,6 +61,7 @@ userApiObj.post(
     }
   })
 );
+// get all user
 userApiObj.get(
   "/getalluser",
   checkToken,
@@ -69,6 +70,7 @@ userApiObj.get(
     res.send({ message: "alluser", payload: alluser });
   })
 );
+// edit user profile pic
 userApiObj.put(
   "/editprofilepic",
   checkToken,
@@ -87,6 +89,7 @@ userApiObj.put(
     res.send({ message: "updated", payload: newEncryptedUser });
   })
 );
+// edit user profile
 userApiObj.put(
   "/edituserprofile",
   checkToken,

@@ -5,12 +5,12 @@ import EditProfilePic from "./EditProfilePic";
 const ProfilePage = () => {
   let { userObj } = useSelector((state) => state.user);
   let [user, setUser] = useState({});
+  let [show, setShow] = useState(false);
+  let [password, setPassword] = useState(false);
   useEffect(() => {
     setUser(userObj);
     // eslint-disable-next-line
   }, [userObj]);
-  let [show, setShow] = useState(false);
-  let [password, setPassword] = useState(false);
   return (
     <div className="container">
       {JSON.stringify(user) !== JSON.stringify({}) && (
@@ -19,13 +19,15 @@ const ProfilePage = () => {
             <div className="card">
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center text-center">
+                  {/* Profile Pic */}
                   <img
                     src={user?.image}
-                    alt="Admin"
+                    alt="profile pic"
                     className="rounded-circle"
                     width="200px"
                     height="200px"
                   />
+                  {/* Name */}
                   <div className="mt-3">
                     <h4>{user.name}</h4>
                     <button
@@ -34,6 +36,7 @@ const ProfilePage = () => {
                     >
                       Edit Profile Pic
                     </button>
+                    {/* Edit Profile Pic Modal */}
                     <EditProfilePic show={show} setShow={setShow} />
                   </div>
                 </div>
@@ -45,7 +48,7 @@ const ProfilePage = () => {
               <div className="card-body">
                 <div className="row">
                   <div className="col-sm-3">
-                    <h6 className="mb-0">Full Name</h6>
+                    <h6 className="mb-0">Name</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">{user.name}</div>
                 </div>
@@ -65,6 +68,7 @@ const ProfilePage = () => {
                     >
                       Edit
                     </button>
+                    {/* Edit Profile Modal */}
                     <EditProfile
                       password={password}
                       setPassword={setPassword}
