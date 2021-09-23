@@ -55,16 +55,24 @@ const UserDashBoard = () => {
   }, []);
   return (
     <div className="fluid-container">
-      <Banner />
-      <LatestMovie />
-      <MovieSliderWF type="Watchlist" />
-      <MovieSliderWF type="Favourite" />
-      <TypeCard title="Genres" collection={genres} />
-      <TypeCard title="Languages" collection={languages} />
-      <TypeCard title="Category" collection={categories} />
-      {genres.map((data) => {
-        return <MovieSlider type="Genres" data={data} />;
-      })}
+      {contentCollection.length !== 0 && (
+        <>
+          <Banner />
+          <LatestMovie />
+          {!isAdmin && (
+            <>
+              <MovieSliderWF type="Watchlist" />
+              <MovieSliderWF type="Favourite" />
+            </>
+          )}
+          <TypeCard title="Genres" collection={genres} />
+          <TypeCard title="Languages" collection={languages} />
+          <TypeCard title="Category" collection={categories} />
+          {genres.map((data) => {
+            return <MovieSlider type="Genres" data={data} />;
+          })}
+        </>
+      )}
     </div>
   );
 };

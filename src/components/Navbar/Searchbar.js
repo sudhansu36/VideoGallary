@@ -26,7 +26,7 @@ const Searchbar = () => {
         aria-label="Search"
         {...register("searchItem", { required: true })}
       />
-      <button className="btn p-0 text-light" type="submit">
+      <button className="btn p-0 text-light noshadow" type="submit">
         <i className="fas fa-search my-auto"></i>
       </button>
     </form>

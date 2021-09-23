@@ -15,7 +15,6 @@ test("renders When Login Modal Is true in and email is typed", async () => {
   );
   userEvent.type(screen.getByPlaceholderText(/Password/i), "sudhansu");
   userEvent.type(screen.getByPlaceholderText(/Email/i), "s@s.com");
-  const SignInBtn = screen.getByRole("button", { name: "SIGN IN" });
-  userEvent.click(SignInBtn);
-  expect(SignInBtn).toBeVisible();
+  const emailElement = screen.getByDisplayValue(/sudhansu/i);
+  expect(emailElement).toBeInTheDocument();
 });

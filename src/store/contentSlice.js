@@ -45,6 +45,7 @@ export const deleteContent = createAsyncThunk(
     );
     let data = response.data;
     if (data.message === "deleted") {
+      alert("Content Deleted")
       return data;
     } else {
       // it will provide data to rejected state

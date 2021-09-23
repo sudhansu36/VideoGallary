@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import Slider from "./Slider";
 const MovieSliderWF = ({ type }) => {
-  let history = useHistory();
   let { watchList } = useSelector((state) => state.watchlist);
   let { favourite } = useSelector((state) => state.favourite);
   let { contentCollection } = useSelector((state) => state.contentCollection);
@@ -23,33 +22,9 @@ const MovieSliderWF = ({ type }) => {
     }
     // eslint-disable-next-line
   }, [contentCollection, watchList, favourite]);
-  function moviePreview(movie) {
-    history.push(`/result/${movie._id}`);
-  }
-
   return (
     <div className="fluid-container">
-      {state.length !== 0 && (
-        <>
-          <h3 className="text-light fw-bold pt-1 px-4 pb-0">{type}</h3>
-          <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-1 px-4">
-            {state.map((obj, index) => {
-              return (
-                <div
-                  className="card p-0 bg-transparent poster border-0 mx-2"
-                  key={index}
-                >
-                  <img
-                    src={obj.image}
-                    alt="..."
-                    onClick={() => moviePreview(obj)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
+      {state.length !== 0 && <Slider result={state} title={type} />}
     </div>
   );
 };

@@ -135,3 +135,12 @@ body {
     animation-timing-function: ease-out;
   }
 }
+
+.spinner {
+  position: absolute;
+  top: 360px;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}

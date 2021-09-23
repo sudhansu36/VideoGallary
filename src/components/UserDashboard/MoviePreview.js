@@ -52,9 +52,9 @@ const MoviePreview = () => {
               {state.genres.map((genre, index) => {
                 return (
                   <button
-                    className="px-2 me-2 btn btn-dark text-light"
+                    className="px-2 me-2 my-2 btn btn-dark text-light"
                     key={index}
-                    onClick={() => history.push(`/result/Category/${genre}`)}
+                    onClick={() => history.push(`/result/Genres/${genre}`)}
                   >
                     {genre}
                   </button>
