@@ -20,6 +20,7 @@
     "mongodb": "^4.1.2",
     "multer": "^1.4.3",
     "multer-storage-cloudinary": "^4.0.0",
+    "nodemon": "^2.0.13",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-rc.0",
     "react-dom": "^17.0.2",
@@ -36,7 +37,7 @@
   },
   "scripts": {
     "start": "nodemon server",
-    "start:front":"react-scripts start",
+    "start:front": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
