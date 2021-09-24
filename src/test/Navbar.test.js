@@ -1,4 +1,4 @@
-import { render, screen,waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import Navbar from "../components/Navbar/Navbar";
 import { store } from "../store/store";
 import { Provider } from "react-redux";
@@ -21,12 +21,8 @@ test("renders Basic Element in Navbar", () => {
   expect(lixElement).toBeInTheDocument();
 });
 test("renders When Login Modal Is true in Navbar", () => {
-  function setRModal(value) {
-    let rmodal = value;
-  }
-  function setLModal(value) {
-    let lmodal = value;
-  }
+  function setRModal(value) {}
+  function setLModal(value) {}
   render(
     <Provider store={store}>
       <LoadingState>
@@ -34,7 +30,6 @@ test("renders When Login Modal Is true in Navbar", () => {
       </LoadingState>
     </Provider>
   );
-
   const LoginElement = screen.getByText(/LOGIN/i);
   expect(LoginElement).toBeInTheDocument();
   const SIGNINElement = screen.getByText(/SIGN IN/i);

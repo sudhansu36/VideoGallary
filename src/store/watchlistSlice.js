@@ -79,26 +79,32 @@ const watchlistSlice = createSlice({
       state.isLoading = true;
     },
     [addToWatchList.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
+      state = Object.assign(...state, {
+        isSuccess: false,
+        isError: true,
+        isLoading: false,
+        invalidMessage: action.payload.message,
+      });
     },
     [getWatchList.fulfilled]: (state, action) => {
-      state.watchList = action.payload.payload;
-      state.isSuccess = true;
-      state.isLoading = false;
-      state.invalidMessage = "";
-      state.isError = false;
+      state = Object.assign(state, {
+        watchList: action.payload.payload,
+        isSuccess: true,
+        isLoading: false,
+        invalidMessage: "",
+        isError: false,
+      });
     },
     [getWatchList.pending]: (state, action) => {
       state.isLoading = true;
     },
     [getWatchList.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
+      state = Object.assign(state, {
+        isSuccess: false,
+        isError: true,
+        isLoading: false,
+        invalidMessage: action.payload.message,
+      });
     },
     [deleteFromWatchList.fulfilled]: (state, action) => {
       state.watchList.splice(action.payload.index, 1);
@@ -111,10 +117,12 @@ const watchlistSlice = createSlice({
       state.isLoading = true;
     },
     [deleteFromWatchList.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
+      state = Object.assign(state, {
+        isSuccess: false,
+        isError: true,
+        isLoading: false,
+        invalidMessage: action.payload.message,
+      });
     },
   },
 });

@@ -127,10 +127,12 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     [userLogin.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidLoginMessage = action.payload.message;
+      state = Object.assign(state, {
+        isSuccess: false,
+        isError: true,
+        isLoading: false,
+        invalidMessage: action.payload.message,
+      });
     },
     [editProfilePicture.fulfilled]: (state, action) => {
       state.userObj = action.payload;
@@ -144,10 +146,12 @@ const userSlice = createSlice({
       state.isSuccess = false;
     },
     [editProfilePicture.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidLoginMessage = action.payload;
+      state = Object.assign(state, {
+        isSuccess: false,
+        isError: true,
+        isLoading: false,
+        invalidMessage: action.payload,
+      });
     },
     [editUserProfile.fulfilled]: (state, action) => {
       state.userObj = action.payload;
@@ -161,10 +165,12 @@ const userSlice = createSlice({
       state.isSuccess = false;
     },
     [editUserProfile.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidLoginMessage = action.payload.message;
+      state = Object.assign(state, {
+        isSuccess: false,
+        isError: true,
+        isLoading: false,
+        invalidMessage: action.payload.message,
+      });
     },
   },
 });
