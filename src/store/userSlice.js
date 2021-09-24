@@ -23,6 +23,7 @@ export const userLogin = createAsyncThunk(
       });
       data = response.data;
     }
+    console.log(data);
     // After Successful response
     if (data.message === "success") {
       localStorage.setItem("token", data.token);
