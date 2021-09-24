@@ -35,7 +35,7 @@ const MoviePreview = () => {
   }
   return (
     <div>
-      {state && (
+      {state ? (
         <div
           className="banner"
           style={{
@@ -142,7 +142,7 @@ const MoviePreview = () => {
             </div>
           </div>
         </div>
-      )}
+      ):<h1 className="text-light text-center my-5">Movie Deleted</h1>}
       {state && <Recommendations genres={state.genres} />}
     </div>
   );
