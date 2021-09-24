@@ -3,7 +3,7 @@ function getAxiosWithTokenObj() {
   // get token
   let token = localStorage.getItem("token");
   // add token to header of req object
-  let apiUrl = process.env.Type
+  let apiUrl = process.env.REACT_APP_TYPE
     ? "https://prilix.herokuapp.com/"
     : "http://localhost:4000";
   let axiosReqWithToken = axios.create({
