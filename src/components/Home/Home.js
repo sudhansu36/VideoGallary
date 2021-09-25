@@ -61,7 +61,7 @@ const Home = ({ setLModal, token }) => {
               <h3 className="text-warning">Welcome to Prilix</h3>
               <p>Join Prilix to watch the latest movies, TV shows</p>
               {/* Get Started Button */}
-              {token && <GetStarted setLModal={setLModal} />}
+              {!token && <GetStarted setLModal={setLModal} />}
             </div>
           </div>
           {/* Carousel */}

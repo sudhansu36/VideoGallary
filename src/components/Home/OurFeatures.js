@@ -23,7 +23,7 @@ const OurFeatures = ({ setLModal, token }) => {
                       Originals, blockbuster Bollywood movies, regional movies
                       and more.
                     </p>
-                    {token && <GetStarted setLModal={setLModal} />}
+                    {!token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
               </div>
@@ -39,7 +39,7 @@ const OurFeatures = ({ setLModal, token }) => {
                       Watch offline on the Prilx Video app when you download
                       titles to your iPhone, iPad, Tablet, or Android device.
                     </p>
-                    {token && <GetStarted setLModal={setLModal} />}
+                    {!token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
                 <div className="col-lg-4 order-lg-2  p-0">
@@ -71,7 +71,7 @@ const OurFeatures = ({ setLModal, token }) => {
                       phone, tablet, or select Smart TVs — on up to any devices
                       at once.
                     </p>
-                    {token && <GetStarted setLModal={setLModal} />}
+                    {!token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@ const OurFeatures = ({ setLModal, token }) => {
                       Control data usage while downloading and watching videos
                       on select phones or tablets.
                     </p>
-                    {token && <GetStarted setLModal={setLModal} />}
+                    {!token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
                 <div className="col-lg-4 order-lg-2  p-0">
