@@ -3,7 +3,7 @@ import Carousel from "./Carousel";
 import GetStarted from "./GetStarted";
 import OurFeatures from "./OurFeatures";
 import SquareCard from "./SquareCard";
-const Home = ({ setLModal }) => {
+const Home = ({ setLModal, token }) => {
   return (
     <div className="fluid">
       <div className="container-fluid">
@@ -61,7 +61,7 @@ const Home = ({ setLModal }) => {
               <h3 className="text-warning">Welcome to Prilix</h3>
               <p>Join Prilix to watch the latest movies, TV shows</p>
               {/* Get Started Button */}
-              <GetStarted setLModal={setLModal} />
+              {token && <GetStarted setLModal={setLModal} />}
             </div>
           </div>
           {/* Carousel */}
@@ -70,7 +70,7 @@ const Home = ({ setLModal }) => {
           </div>
         </div>
         {/* Some Horizontal Cards */}
-        <OurFeatures setLModal={setLModal} />
+        <OurFeatures setLModal={setLModal} token={token} />
         {/* Figures */}
         <SquareCard />
       </div>

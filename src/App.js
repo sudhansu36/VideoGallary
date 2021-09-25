@@ -110,7 +110,7 @@ function App() {
         <Switch>
           {/* Home Page */}
           <Route exact path="/">
-            <Home setLModal={setLModal} />
+            <Home setLModal={setLModal} token={token}/>
           </Route>
           {/* User Dashboard */}
           <Route path="/userdashboard/:name">

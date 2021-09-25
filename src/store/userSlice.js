@@ -131,7 +131,7 @@ const userSlice = createSlice({
         isSuccess: false,
         isError: true,
         isLoading: false,
-        invalidMessage: action.payload.message,
+        invalidLoginMessage: action.payload.message,
       });
     },
     [editProfilePicture.fulfilled]: (state, action) => {

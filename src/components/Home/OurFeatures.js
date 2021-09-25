@@ -1,6 +1,6 @@
 import React from "react";
 import GetStarted from "./GetStarted";
-const OurFeatures = ({ setLModal }) => {
+const OurFeatures = ({ setLModal, token }) => {
   return (
     <div className="my-1">
       <div className="container-fluid text-light">
@@ -23,7 +23,7 @@ const OurFeatures = ({ setLModal }) => {
                       Originals, blockbuster Bollywood movies, regional movies
                       and more.
                     </p>
-                    <GetStarted setLModal={setLModal} />
+                    {token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
               </div>
@@ -39,7 +39,7 @@ const OurFeatures = ({ setLModal }) => {
                       Watch offline on the Prilx Video app when you download
                       titles to your iPhone, iPad, Tablet, or Android device.
                     </p>
-                    <GetStarted setLModal={setLModal} />
+                    {token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
                 <div className="col-lg-4 order-lg-2  p-0">
@@ -71,7 +71,7 @@ const OurFeatures = ({ setLModal }) => {
                       phone, tablet, or select Smart TVs — on up to any devices
                       at once.
                     </p>
-                    <GetStarted setLModal={setLModal} />
+                    {token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@ const OurFeatures = ({ setLModal }) => {
                       Control data usage while downloading and watching videos
                       on select phones or tablets.
                     </p>
-                    <GetStarted setLModal={setLModal} />
+                    {token && <GetStarted setLModal={setLModal} />}
                   </div>
                 </div>
                 <div className="col-lg-4 order-lg-2  p-0">
