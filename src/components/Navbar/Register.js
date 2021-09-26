@@ -16,7 +16,7 @@ const Register = (props) => {
   const onRegisterFormSubmit = async (userObj) => {
     setProgress(10);
     let formData = new FormData();
-    formData.append("photo", file, file.name);
+    file !== null && formData.append("photo", file, file.name);
     formData.append("userObj", JSON.stringify(userObj));
     setProgress(20);
     let responseObj = await axios.post("/users/register", formData);
@@ -63,7 +63,9 @@ const Register = (props) => {
             {errors.name?.type === "required" ? (
               <label className="text-danger">* Name is Required</label>
             ) : (
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">
+                Name<span className="text-danger">*</span>
+              </label>
             )}
           </div>
           {/* Email */}
@@ -78,7 +80,9 @@ const Register = (props) => {
             {errors.email?.type === "required" ? (
               <label className="text-danger">* Email is Required</label>
             ) : (
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">
+                Email<span className="text-danger">*</span>
+              </label>
             )}
           </div>
           {/* Profile Pic */}
@@ -90,7 +94,6 @@ const Register = (props) => {
               id="pic"
               onChange={onDpSelect}
               placeholder="Profile Picture"
-              required
               accept="image/*"
             />
           </div>
@@ -107,7 +110,9 @@ const Register = (props) => {
             {errors.password?.type === "required" ? (
               <label className="text-danger">* Password is Required</label>
             ) : (
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">
+                Password<span className="text-danger">*</span>
+              </label>
             )}
           </div>
           {/* Sign Up button */}

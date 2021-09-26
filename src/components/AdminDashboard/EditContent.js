@@ -35,7 +35,7 @@ const EditContent = () => {
   }
   return (
     <div
-      className="fluid mt-4"
+      className="fluid"
       style={{
         backgroundSize: "cover",
         backgroundImage: `url(${value?.image})`,

@@ -1,5 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
+const reducerPending = (state) => {
+  return (state = {
+    ...state,
+    isLoading: true,
+    isSuccess: false,
+    invalidMessage: "",
+  });
+};
+const reducerRejected = (state, action) => {
+  return (state = {
+    ...state,
+    isError: true,
+    isLoading: false,
+    invalidMessage: action.payload.message,
+  });
+};
 export const addToWatchList = createAsyncThunk(
   "addToWatchList",
   async (content, thunkAPI) => {
@@ -75,17 +91,8 @@ const watchlistSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [addToWatchList.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [addToWatchList.rejected]: (state, action) => {
-      state = Object.assign(...state, {
-        isSuccess: false,
-        isError: true,
-        isLoading: false,
-        invalidMessage: action.payload.message,
-      });
-    },
+    [addToWatchList.pending]: reducerPending,
+    [addToWatchList.rejected]: reducerRejected,
     [getWatchList.fulfilled]: (state, action) => {
       state = Object.assign(state, {
         watchList: action.payload.payload,
@@ -95,17 +102,8 @@ const watchlistSlice = createSlice({
         isError: false,
       });
     },
-    [getWatchList.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [getWatchList.rejected]: (state, action) => {
-      state = Object.assign(state, {
-        isSuccess: false,
-        isError: true,
-        isLoading: false,
-        invalidMessage: action.payload.message,
-      });
-    },
+    [getWatchList.pending]: reducerPending,
+    [getWatchList.rejected]: reducerRejected,
     [deleteFromWatchList.fulfilled]: (state, action) => {
       state.watchList.splice(action.payload.index, 1);
       state.isSuccess = true;
@@ -113,17 +111,8 @@ const watchlistSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [deleteFromWatchList.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [deleteFromWatchList.rejected]: (state, action) => {
-      state = Object.assign(state, {
-        isSuccess: false,
-        isError: true,
-        isLoading: false,
-        invalidMessage: action.payload.message,
-      });
-    },
+    [deleteFromWatchList.pending]: reducerPending,
+    [deleteFromWatchList.rejected]: reducerRejected,
   },
 });
 export const { clearWatchListState } = watchlistSlice.actions;

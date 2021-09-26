@@ -1,5 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
+const reducerPending = (state) => {
+  return (state = {
+    ...state,
+    isLoading: true,
+    isSuccess: false,
+    invalidMessage: "",
+  });
+};
+const reducerRejected = (state, action) => {
+  return (state = {
+    ...state,
+    isError: true,
+    isLoading: false,
+    invalidMessage: action.payload.message,
+  });
+};
 export const getFavourite = createAsyncThunk(
   "getFavourite",
   async (userMail, thunkAPI) => {
@@ -76,15 +92,8 @@ const favouriteSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [addToFavorite.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [addToFavorite.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [addToFavorite.pending]: reducerPending,
+    [addToFavorite.rejected]: reducerRejected,
     [getFavourite.fulfilled]: (state, action) => {
       state.favourite = action.payload.payload;
       state.isSuccess = true;
@@ -92,15 +101,8 @@ const favouriteSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [getFavourite.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [getFavourite.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [getFavourite.pending]: reducerPending,
+    [getFavourite.rejected]: reducerRejected,
     [deleteFromFavourite.fulfilled]: (state, action) => {
       state.favourite.splice(action.payload.index, 1);
       state.isSuccess = true;
@@ -108,15 +110,8 @@ const favouriteSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [deleteFromFavourite.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [deleteFromFavourite.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [deleteFromFavourite.pending]: reducerPending,
+    [deleteFromFavourite.rejected]: reducerRejected,
   },
 });
 export const { clearFavouriteState } = favouriteSlice.actions;

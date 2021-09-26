@@ -2,7 +2,7 @@ import React from "react";
 import GetStarted from "./GetStarted";
 const OurFeatures = ({ setLModal, token }) => {
   return (
-    <div className="my-1">
+    <div className="my-4">
       <div className="container-fluid text-light">
         <div className="row row-cols-1">
           <div className="col p-0 my-2">
@@ -17,7 +17,7 @@ const OurFeatures = ({ setLModal, token }) => {
                 </div>
                 <div className="col my-auto mx-3">
                   <div className="my-1">
-                    <h1>Great Entertainment</h1>
+                    <h1 className="my-1">Great Entertainment</h1>
                     <p className="lead">
                       With your Prilix membership, you have access to exclusive
                       Originals, blockbuster Bollywood movies, regional movies
@@ -34,7 +34,7 @@ const OurFeatures = ({ setLModal, token }) => {
               <div className="card-body row p-0 m-0">
                 <div className="col order-lg-1 order-2 text-lg-end my-auto mx-3">
                   <div className="my-1">
-                    <h1>Download and go</h1>
+                    <h1 className="my-1">Download and go</h1>
                     <p className="lead">
                       Watch offline on the Prilx Video app when you download
                       titles to your iPhone, iPad, Tablet, or Android device.
@@ -65,7 +65,7 @@ const OurFeatures = ({ setLModal, token }) => {
                 </div>
                 <div className="col my-auto mx-3">
                   <div className="my-1">
-                    <h1>Watch anywhere</h1>
+                    <h1 className="my-1">Watch anywhere</h1>
                     <p className="lead">
                       Enjoy from the web or with the Prilix Video app on your
                       phone, tablet, or select Smart TVs — on up to any devices
@@ -82,7 +82,7 @@ const OurFeatures = ({ setLModal, token }) => {
               <div className="card-body row p-0 m-0">
                 <div className="col order-lg-1 order-2 text-lg-end my-auto mx-3">
                   <div className="my-1">
-                    <h1>Data saver</h1>
+                    <h1 className="my-1">Data saver</h1>
                     <p className="lead">
                       Control data usage while downloading and watching videos
                       on select phones or tablets.

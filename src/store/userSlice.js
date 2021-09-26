@@ -2,6 +2,23 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { decrypt, encrypt } from "../AuthorizedRequest/EncriptionDecription";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
+
+const reducerPending = (state) => {
+  return (state = {
+    ...state,
+    isLoading: true,
+    isSuccess: false,
+    invalidMessage: "",
+  });
+};
+const reducerRejected = (state, action) => {
+  return (state = {
+    ...state,
+    isError: true,
+    isLoading: false,
+    invalidMessage: action.payload.message,
+  });
+};
 // Login Thunk
 export const userLogin = createAsyncThunk(
   "loginUser",
@@ -123,55 +140,36 @@ const userSlice = createSlice({
         isError: false,
       });
     },
-    [userLogin.pending]: (state, action) => {
-      state.isLoading = true;
-    },
+    [userLogin.pending]: reducerPending,
     [userLogin.rejected]: (state, action) => {
       state = Object.assign(state, {
-        isSuccess: false,
         isError: true,
         isLoading: false,
         invalidLoginMessage: action.payload.message,
       });
     },
     [editProfilePicture.fulfilled]: (state, action) => {
-      state.userObj = action.payload;
-      state.isSuccess = true;
-      state.isLoading = false;
-      state.invalidLoginMessage = "";
-      state.isError = false;
-    },
-    [editProfilePicture.pending]: (state, action) => {
-      state.isLoading = true;
-      state.isSuccess = false;
-    },
-    [editProfilePicture.rejected]: (state, action) => {
       state = Object.assign(state, {
-        isSuccess: false,
-        isError: true,
+        userObj: action.payload,
+        isSuccess: true,
         isLoading: false,
-        invalidMessage: action.payload,
+        invalidLoginMessage: "",
+        isError: false,
       });
     },
+    [editProfilePicture.pending]: reducerPending,
+    [editProfilePicture.rejected]: reducerRejected,
     [editUserProfile.fulfilled]: (state, action) => {
-      state.userObj = action.payload;
-      state.isSuccess = true;
-      state.isLoading = false;
-      state.invalidLoginMessage = "";
-      state.isError = false;
-    },
-    [editUserProfile.pending]: (state, action) => {
-      state.isLoading = true;
-      state.isSuccess = false;
-    },
-    [editUserProfile.rejected]: (state, action) => {
       state = Object.assign(state, {
-        isSuccess: false,
-        isError: true,
+        userObj: action.payload,
+        isSuccess: true,
         isLoading: false,
-        invalidMessage: action.payload.message,
+        invalidLoginMessage: "",
+        isError: false,
       });
     },
+    [editUserProfile.pending]: reducerPending,
+    [editUserProfile.rejected]: reducerRejected,
   },
 });
 export const { clearLoginState, reLogin } = userSlice.actions;

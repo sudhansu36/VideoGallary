@@ -1,6 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import getAxiosWithTokenObj from "../AuthorizedRequest/AxiosReqWithToken";
-
+const reducerPending = (state) => {
+  return (state = {
+    ...state,
+    isLoading: true,
+    isSuccess: false,
+    invalidMessage: "",
+  });
+};
+const reducerRejected = (state, action) => {
+  return (state = {
+    ...state,
+    isError: true,
+    isLoading: false,
+    invalidMessage: action.payload.message,
+  });
+};
 export const getContent = createAsyncThunk(
   "getContent",
   async (_, thunkAPI) => {
@@ -45,7 +60,7 @@ export const deleteContent = createAsyncThunk(
     );
     let data = response.data;
     if (data.message === "deleted") {
-      alert("Content Deleted")
+      alert("Content Deleted");
       return data;
     } else {
       // it will provide data to rejected state
@@ -95,15 +110,8 @@ const contentSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [getContent.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [getContent.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [getContent.pending]: reducerPending,
+    [getContent.rejected]: reducerRejected,
     [deleteContent.fulfilled]: (state, action) => {
       state.contentCollection.splice(action.payload.index, 1);
       state.isSuccess = true;
@@ -111,16 +119,8 @@ const contentSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [deleteContent.pending]: (state, action) => {
-      state.isLoading = true;
-      state.isSuccess = false;
-    },
-    [deleteContent.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [deleteContent.pending]: reducerPending,
+    [deleteContent.rejected]: reducerRejected,
     [addContent.fulfilled]: (state, action) => {
       state.contentCollection.push(action.payload.payload);
       state.isSuccess = true;
@@ -128,16 +128,8 @@ const contentSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [addContent.pending]: (state, action) => {
-      state.isLoading = true;
-      state.isSuccess = false;
-    },
-    [addContent.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [addContent.pending]: reducerPending,
+    [addContent.rejected]: reducerRejected,
     [editContent.fulfilled]: (state, action) => {
       state.contentCollection.splice(
         action.payload.index,
@@ -149,16 +141,8 @@ const contentSlice = createSlice({
       state.invalidMessage = "";
       state.isError = false;
     },
-    [editContent.pending]: (state, action) => {
-      state.isLoading = true;
-      state.isSuccess = false;
-    },
-    [editContent.rejected]: (state, action) => {
-      state.isSuccess = false;
-      state.isError = true;
-      state.isLoading = false;
-      state.invalidMessage = action.payload.message;
-    },
+    [editContent.pending]: reducerPending,
+    [editContent.rejected]: reducerRejected,
   },
 });
 export const { clearContentState } = contentSlice.actions;

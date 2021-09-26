@@ -7,8 +7,8 @@ const Slider = ({ result, title }) => {
   }
   return (
     <div>
-      <h3 className="text-light fw-bold pt-1 px-4 pb-0">{title}</h3>
-      <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-1 px-4">
+      <h3 className="text-light fw-bold pt-1 px-4 pb-0 mb-0 pt-2">{title}</h3>
+      <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-2 row-cols-sm-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-1 px-4">
         {result.map((obj) => {
           return (
             <div className="card p-0 bg-transparent poster border-0 mx-2">

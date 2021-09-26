@@ -22,7 +22,7 @@ const TypeCard = (props) => {
   return (
     <div className="fluid-container py-2 mx-3">
       <h3 className="text-light fw-bold py-0 px-2 m-0">{props.title}</h3>
-      <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-2">
+      <div className="d-flex flex-row flex-nowrap overflow-auto row row-cols-2 row-cols-sm-3 row-cols-md-6  row-cols-lg-8 scoll-pane m-0 py-2">
         {props.collection.map((obj, key) => {
           return (
             <div

@@ -19,7 +19,10 @@ userApiObj.post(
   userDpObj.single("photo"),
   expressAsyncHandler(async (req, res) => {
     let newUser = JSON.parse(req.body.userObj);
-    newUser.image = req.file.path;
+    req.file !== undefined
+      ? (newUser.image = req.file.path)
+      : (newUser.image =
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrrxsxZSpsfebkw8VLXe6R5j7mryT6PK7Pg&usqp=CAU");
     let user = await userCollection.findOne({ email: newUser.email });
     if (user) {
       res.send({ message: "User Already Existed" });
