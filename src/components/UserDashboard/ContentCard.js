@@ -25,14 +25,9 @@ const ContentCard = (props) => {
     let list = favourite.find((id) => id === mid);
     return list;
   }
-  const [isShown, setIsShown] = useState(false);
   return (
     <div className="col" key={props.key}>
-      <div
-        className="card h-100 bg-transparent text-light p-0 border-0 poster"
-        onMouseEnter={() => setIsShown(true)}
-        onMouseLeave={() => setIsShown(false)}
-      >
+      <div className="card h-100 bg-transparent text-light p-0 border-0 poster">
         <img
           src={props.obj.image}
           className="card-img-top btn"
