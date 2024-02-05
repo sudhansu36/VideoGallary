@@ -7,6 +7,7 @@ const contentApiObj = express.Router();
 contentApiObj.use(express.json());
 let contentCollection;
 contentApiObj.use((req, res, next) => {
+  console.log(req);
   contentCollection = req.app.get("contentCollection");
   next();
 });
@@ -64,7 +65,7 @@ contentApiObj.put(
     let updatedContent = { ...contentObj };
     delete contentObj._id;
     await contentCollection.updateOne(
-      { _id: new ObjectId(updatedContent._id)},
+      { _id: new ObjectId(updatedContent._id) },
       { $set: contentObj }
     );
     res.send({ message: "updated", payload: updatedContent });

@@ -12,7 +12,6 @@ const watchlistApiObj = require("./APIS/watchlistApi");
 const favouriteApiObj = require("./APIS/favouriteApi");
 const feedbackApiObj = require("./APIS/feedbackApi");
 
-const baseURL = process.env.REACT_APP_API_BASE_URL;
 // Route Path
 app.use("/users", userApiObj);
 app.use("/admin", adminApiObj);
@@ -58,6 +57,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, baseURL, () =>
+app.listen(PORT, () =>
   console.log(`Server listening on port ${PORT}`)
 );
