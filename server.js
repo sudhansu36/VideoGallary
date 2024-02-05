@@ -4,13 +4,15 @@ const path = require("path");
 require("dotenv").config();
 // To connect build
 app.use(express.static(path.join(__dirname, "./build")));
-// Import Api 
+// Import Api
 const userApiObj = require("./APIS/userApi");
 const adminApiObj = require("./APIS/adminApi");
 const contentApiObj = require("./APIS/contentApi");
 const watchlistApiObj = require("./APIS/watchlistApi");
 const favouriteApiObj = require("./APIS/favouriteApi");
 const feedbackApiObj = require("./APIS/feedbackApi");
+
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 // Route Path
 app.use("/users", userApiObj);
 app.use("/admin", adminApiObj);
@@ -56,4 +58,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, baseURL, () =>
+  console.log(`Server listening on port ${PORT}`)
+);
